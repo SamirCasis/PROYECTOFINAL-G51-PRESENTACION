@@ -1,0 +1,11 @@
+.nav {
+    background-color: white;
+    min-height: 100px;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.logoNav {
+    height: 100px;
+}

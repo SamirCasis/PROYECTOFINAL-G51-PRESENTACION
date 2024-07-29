@@ -1,0 +1,23 @@
+    .mainHome {
+      background-image: url(/imgportada.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .mainHome h1 {
+      margin-left: 25%;
+      margin-bottom: 40%;
+      color: white;
+      background-color: rgba(29, 29, 29, 0.5);
+    }
+
+    .filter {
+      min-height: 10vh;
+      background-color: blue;
+    }
+
+    .gallery {
+      min-height: 20vh;
+      background-color: red;
+    }

@@ -1,0 +1,10 @@
+.Footer {
+    background-color: rgb(113, 118, 122);
+    text-align: center;
+    min-height: 30vh;
+    color: white;
+}
+
+.contacto {
+    display: flex;
+}
