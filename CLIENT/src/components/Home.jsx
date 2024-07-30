@@ -1,16 +1,16 @@
+import Carousel from './Carousel'
+import Gallery from './Gallery'
 import './Home.css'
 
 const Home = () => {
     return (
         <>
-            <main className='inicial'>
-            <article className='mainHome'>
-                <h1>Busca tu futura propiedad con nosotros</h1>
-            </article>
-            <section className='filter'>
-
-            </section>
-            <section className='gallery'></section>
+            <main className='mainHome'>
+                <Carousel />
+                <section className='filter'></section>
+                <section className='gallery'>
+                    <Gallery />
+                </section>
             </main>
         </>
     )

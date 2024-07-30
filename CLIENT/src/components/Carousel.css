@@ -1,0 +1,27 @@
+.carousel-inner img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+}
+
+.carousel-control-prev-icon {
+  margin-right: 40%;
+}
+
+.carousel-control-next-icon {
+  margin-left: 40%;
+}
+
+.carousel-container {
+  position: relative;
+}
+
+.carousel-container h1 {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}

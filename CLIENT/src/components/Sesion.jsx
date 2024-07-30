@@ -70,4 +70,4 @@ const Login = ({ setError }) => {
     );
 };
 
-export default Login;
+export default Login
