@@ -1,9 +1,15 @@
 .nav {
-    background-color: white;
     min-height: 100px;
     align-items: center;
     justify-content: space-evenly;
     padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    color: white;
+    padding: 1rem;
+    z-index: 1000;
 }
 
 .logoNav {

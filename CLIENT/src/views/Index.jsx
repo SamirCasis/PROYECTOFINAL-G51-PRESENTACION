@@ -1,5 +1,6 @@
 export { default as HomeView } from './HomeView'
 export { default as RegisterView } from './RegisterView'
 export { default as SesionView } from './SesionView'
-/* export { default as CartView } from './CartView' */
+export { default as UserView } from './UserView'
+export { default as PropertyView } from './PropertyView'
 export { default as NotFound } from './NotFound'

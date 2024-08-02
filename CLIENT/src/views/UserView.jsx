@@ -1,9 +1,9 @@
 import React from 'react'
-import Logued from '../components/Logued'
+import UserProfile from '../components/UserProfile'
 
 const LoguedView = () => {
   return (
-    <Logued />
+    <UserProfile />
   )
 }
 

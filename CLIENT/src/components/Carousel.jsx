@@ -6,13 +6,13 @@ import './Carousel.css'
 const Carousel = () => {
   const images = [
     { src: '/imgportada.jpg' },
-    { src: '/imgregistro.jpg' },
+    { src: '/imguser.jpg' },
     { src: '/imgsesion.jpg' },
   ]
 
   return (
     <div className="carousel-container">
-      <h1>PROPIEDADES</h1>
+      <h1>SAYE - CORREDORA DE PROPIEDADES</h1>
       <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-indicators">
           {images.map((_, index) => (
@@ -39,11 +39,11 @@ const Carousel = () => {
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
+          <span className="visually-hidden">Anterior</span>
         </button>
         <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
+          <span className="visually-hidden">Siguiente</span>
         </button>
       </div>
     </div>

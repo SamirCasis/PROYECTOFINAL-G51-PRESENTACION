@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
+import { Button } from 'react-bootstrap'
+import { PropertiesContext } from '../context/PropertiesContext'
 
 const Gallery = () => {
   const [properties, setProperties] = useState([])
+  const { irAlDetalle } = useContext(PropertiesContext)
 
   useEffect(() => {
     axios.get('/properties.json')
       .then(response => {
-        console.log('Datos de propiedades:', response.data);  // Agrega esta línea para depurar
+        console.log('Datos de propiedades:', response.data);
         setProperties(response.data)
       })
       .catch(error => {
@@ -29,7 +32,7 @@ const Gallery = () => {
                 <h5 className="card-title">{property.title}</h5>
                 <p className="card-text">{property.description}</p>
                 <p className="card-text"><strong>{property.price}</strong></p>
-                <a href="#" className="btn btn-primary">Ver más</a>
+                <Button className="btn btn-primary" onClick={() => irAlDetalle(property.id)}>Ver más</Button>
               </div>
             </div>
           </div>
