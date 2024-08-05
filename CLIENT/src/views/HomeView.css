@@ -1,0 +1,13 @@
+.filter {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.property-filter {
+  justify-content: center;
+}
+
+.gallery {
+  padding: 5% 5% 10% 5%;
+}

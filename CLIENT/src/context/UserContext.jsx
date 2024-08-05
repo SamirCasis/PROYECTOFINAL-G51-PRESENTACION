@@ -6,6 +6,8 @@ const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
+    phone: '',
+    password: '',
     favorites: [],
   })
 

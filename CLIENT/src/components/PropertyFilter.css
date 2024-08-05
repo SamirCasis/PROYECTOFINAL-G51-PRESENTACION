@@ -1,0 +1,19 @@
+.property-filter {
+    margin: 20px 0;
+    padding: 5px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .property-filter label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .property-filter select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }

@@ -1,5 +1,5 @@
-.userMain {
-    background-image: url(/imguser.jpg);
+.adminMain {
+    background-image: url(/imgadmin.jpg);
     background-size:contain;
     background-position:center;
     background-repeat: no-repeat;
@@ -8,35 +8,36 @@
     display: flex;
 }
 
-.userPanel {
-    background-color: rgba(255, 64, 64, 0.6);
-    display: flex;
+.adminPanel {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10%;
+    position: relative;
+    display: grid;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
-.userPanel h1 {
+.adminPanel h1 {
     color: white;
     margin-left: 5px;
 }
 
-.userPanel article {
+.adminPanel article {
     display: flex;
     flex-direction: column;
 }
 
-.userPanel .options {
+.adminPanel .options {
     color: white;
     text-align: center;
     border: solid;
     border-radius: 5px;
-    margin-top: 10px;
-    font-weight: 500;
+    margin-top: 50px;
 }
 
-.userPanel {
+.adminPanel {
     padding: 20px;
-}
+  }
   
   .property-list {
     list-style-type: none;

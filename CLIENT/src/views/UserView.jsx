@@ -3,7 +3,9 @@ import UserProfile from '../components/UserProfile'
 
 const LoguedView = () => {
   return (
-    <UserProfile />
+    <main>
+      <UserProfile />
+    </main>
   )
 }
 

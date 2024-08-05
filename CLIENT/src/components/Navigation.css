@@ -1,17 +1,21 @@
-.nav {
-    min-height: 100px;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 10px;
-    position: fixed;
+.mainNav {
+    min-height: 10vh;
+    position: sticky;
     top: 0;
     width: 100%;
     background-color: #ffffff;
     color: white;
-    padding: 1rem;
-    z-index: 1000;
+    z-index: 100;
+}
+
+.logoHome {
+    margin-left: 20%;
 }
 
 .logoNav {
-    height: 100px;
+    width: 30%;
+}
+
+.btnIniciar {
+    margin-right: 20px;
 }

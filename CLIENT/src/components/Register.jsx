@@ -6,15 +6,16 @@ const Register = ({ setError }) => {
   const [data, setData] = useState({
     nombre: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: '',
-  });
+  })
 
   const validarDatos = (e) => {
     e.preventDefault();
 
-    const { nombre, email, password, confirmPassword } = data;
-    const validacionDatos = !nombre || !email || !password || !confirmPassword;
+    const { nombre, email, phone, password, confirmPassword } = data;
+    const validacionDatos = !nombre || !email || !phone || !password || !confirmPassword;
     const validarPassword = password !== confirmPassword;
 
     if (validacionDatos) {
@@ -34,13 +35,13 @@ const Register = ({ setError }) => {
         error: true,
         msg: 'Cuenta validada!',
         color: 'success',
-      });
+      })
     }
-  };
+  }
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  };
+  }
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -64,6 +65,16 @@ const Register = ({ setError }) => {
           placeholder='Email'
           onChange={handleChange}
           value={data.email}
+        />
+      </Form.Group>
+      <Form.Group className='mb-3 mt-2'>
+        <input
+          type='number'
+          name='phone'
+          className='form-control'
+          placeholder='Teléfono'
+          onChange={handleChange}
+          value={data.phone}
         />
       </Form.Group>
       <Form.Group className='mb-3 mt-2'>
@@ -97,7 +108,7 @@ const Register = ({ setError }) => {
         Ingresar
       </Button>
     </Form>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

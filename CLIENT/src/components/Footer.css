@@ -1,10 +1,49 @@
 .Footer {
-    background-color: rgb(164, 179, 192);
-    text-align: center;
-    min-height: 30vh;
+    background-color: rgb(51, 60, 68);
+    min-height: 25vh;
     color: white;
+    text-align: center;
+}
+
+.Footer h2 {
+    padding-top: 20px;
+    margin-right: 5%;
+}
+
+.mainFooter {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.linkFooter {
+    text-align: start;
+}
+
+.linkFooter li {
+    margin-top: 15px;
+}
+
+.linkFooter a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.logoFooter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+
+.logoFooter img {
+    width: 35%;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
+    margin-left: 25%;
 }
 
 .contacto {
-    display: flex;
+    text-align: end;
 }

@@ -9,3 +9,13 @@ body {
 .mainHome {
   min-height: 100vh;
 }
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.App-content {
+  flex: 1;
+}

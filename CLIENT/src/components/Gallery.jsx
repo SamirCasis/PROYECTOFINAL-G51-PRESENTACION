@@ -1,45 +1,30 @@
-import React, { useEffect, useState, useContext } from 'react'
-import axios from 'axios'
+import { useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
-import { Button } from 'react-bootstrap'
 import { PropertiesContext } from '../context/PropertiesContext'
+import PropertySample from './PropertySample'
 
 const Gallery = () => {
-  const [properties, setProperties] = useState([])
-  const { irAlDetalle } = useContext(PropertiesContext)
-
-  useEffect(() => {
-    axios.get('/properties.json')
-      .then(response => {
-        console.log('Datos de propiedades:', response.data);
-        setProperties(response.data)
-      })
-      .catch(error => {
-        console.error('Error fetching properties:', error)
-      })
-  }, [])
+  const { properties, favoriteProperties, toggleFavorite, irAlDetalle } = useContext(PropertiesContext);
 
   return (
-    <div className="container mt-5">
+    <div className="container col-10 mt-5">
       <h1 className="mb-4">Propiedades en Venta</h1>
-      <div className="row">
-        {properties.map((property, id) => (
-          <div className="col-md-4" key={id}>
-            <div className="card">
-              <img src={property.img} className="card-img-top" alt={property.title} />
-              <div className="card-body">
-                <h5 className="card-title">{property.title}</h5>
-                <p className="card-text">{property.description}</p>
-                <p className="card-text"><strong>{property.price}</strong></p>
-                <Button className="btn btn-primary" onClick={() => irAlDetalle(property.id)}>Ver más</Button>
-              </div>
-            </div>
+      <section className="row">
+        {properties.map((property) => (
+          <div className="col-md-4" key={property.id}>
+            <PropertySample
+              property={property}
+              isFavorite={favoriteProperties.includes(property.id)}
+              onToggleFavorite={() => toggleFavorite(property.id)}
+              onViewDetail={() => irAlDetalle(property.id)}
+            />
           </div>
         ))}
-      </div>
+      </section>
     </div>
   )
 }
 
 export default Gallery
+

@@ -1,0 +1,13 @@
+.updForm {
+    max-height: 60vh;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.updForm h2 {
+    margin-top: 10px;
+}
+
+.updForm button {
+    margin-top: 20%;
+}
