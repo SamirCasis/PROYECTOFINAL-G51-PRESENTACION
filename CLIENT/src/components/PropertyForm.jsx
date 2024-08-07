@@ -1,7 +1,6 @@
-// PropertyForm.jsx
-import React, { useState, useEffect, useContext } from 'react';
-import { PropertiesContext } from '../context/PropertiesContext';
-import './PropertyForm.css';
+import React, { useState, useEffect, useContext } from 'react'
+import { PropertiesContext } from '../context/PropertiesContext'
+import './PropertyForm.css'
 
 const PropertyForm = ({ property }) => {
   const { setProperties } = useContext(PropertiesContext);
@@ -16,19 +15,18 @@ const PropertyForm = ({ property }) => {
     setFormData({
       ...formData,
       [name]: value
-    });
-  };
+    })
+  }
 
   const handleSave = (e) => {
     e.preventDefault();
 
-    // Update the properties list with the edited property
     setProperties((prevProperties) =>
       prevProperties.map((prop) =>
         prop.id === formData.id ? formData : prop
       )
-    );
-  };
+    )
+  }
 
   return (
     <div className="property-form-container">
@@ -99,7 +97,7 @@ const PropertyForm = ({ property }) => {
         <button type="button" onClick={handleSave}>Guardar</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
 export default PropertyForm

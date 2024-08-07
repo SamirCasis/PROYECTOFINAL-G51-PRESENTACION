@@ -1,34 +1,46 @@
-import React, { createContext, useEffect, useState } from 'react'
+import { createContext, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import Swal from 'sweetalert2'
+import { PropertiesContext } from './PropertiesContext'
 
 export const CartContext = createContext()
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([])
-  const [properties, setProperties] = useState([])
-  const [selectedProperties, setSelectedProperties] = useState([])
   const navigate = useNavigate()
-  const URL = './Properties.json'
+  const { properties } = useContext(PropertiesContext)
 
-  useEffect(() => {
-    axios.get(URL)
-      .then(response => {
-        setProperties(response.data)
+  const agregarCarrito = (propertyId) => {
+    const property = properties.find(prop => prop.id === propertyId)
+    if (property && !cart.some(item => item.id === property.id)) {
+      setCart([...cart, property])
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "🏠 Agregaste una Propiedad",
+        showConfirmButton: false,
+        timer: 1000
       })
-      .catch(error => {
-        console.error("No se puede cargar la información de las propiedades: ", error)
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al cargar propiedades',
-          text: 'No se pueden cargar las propiedades en este momento. Por favor, inténtalo más tarde.',
-        })
+    } else {
+      Swal.fire({
+        icon: 'info',
+        title: 'Ya está en el carrito',
+        text: 'Esta propiedad ya ha sido agregada al carrito',
       })
-  }, [])
+    }
+  }
 
-  const propertiesHandle = (properties) => {
-    setSelectedProperties(properties)
+  const eliminarCarrito = (id) => {
+    const updatedCart = cart.filter(property => property.id !== id)
+    setCart(updatedCart)
+  }
+
+  const eliminarTodoCarrito = () => {
+    setCart([])
+  }
+
+  const sumaTotal = () => {
+    return cart.reduce((total, property) => total + (property.price || 0), 0)
   }
 
   const irAlHome = () => {
@@ -39,44 +51,14 @@ const CartProvider = ({ children }) => {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
+        eliminarTodoCarrito()
         navigate('/')
       }
     })
   }
 
-  const agregarCarrito = (property) => {
-    setCart(prevCart => {
-      const existingProperty = prevCart.find(item => item.id === property.id);
-      if (existingProperty) {
-        return prevCart.map(item =>
-          item.id === property.id
-            ? { ...item, cantidad: (item.cantidad || 1) + 1 }
-            : item
-        );
-      } else {
-        return [...prevCart, { ...property, cantidad: 1 }];
-      }
-    });
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "🏘️ Agregaste una Propiedad",
-      showConfirmButton: false,
-      timer: 1000
-    });
-  }
-
-  const eliminarCarrito = (id) => {
-    const updatedCart = cart.filter(item => item.id !== id);
-    setCart(updatedCart);
-  }
-
-  const sumaTotal = () => {
-    return cart.reduce((total, item) => total + (item.price * (item.cantidad || 1)), 0);
-  }
-
   return (
-    <CartContext.Provider value={{ properties, cart, agregarCarrito, eliminarCarrito, sumaTotal, propertiesHandle, irAlHome, selectedProperties }}>
+    <CartContext.Provider value={{ cart, agregarCarrito, eliminarCarrito, eliminarTodoCarrito, sumaTotal, irAlHome }}>
       {children}
     </CartContext.Provider>
   )

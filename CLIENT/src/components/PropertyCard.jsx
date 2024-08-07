@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { PropertiesContext } from '../context/PropertiesContext'
 import { CartContext } from '../context/CartContext'

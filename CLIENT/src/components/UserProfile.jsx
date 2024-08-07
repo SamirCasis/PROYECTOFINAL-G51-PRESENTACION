@@ -4,7 +4,7 @@ import Favorites from './Favorites'
 import PropertyFilter from './PropertyFilter'
 import './UserProfile.css'
 
-const Logued = () => {
+const userProfile = () => {
   return (
     <main className='userMain'>
       <section className='userPanel'>
@@ -24,4 +24,4 @@ const Logued = () => {
   )
 }
 
-export default Logued
+export default userProfile
