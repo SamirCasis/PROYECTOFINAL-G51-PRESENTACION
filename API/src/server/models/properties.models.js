@@ -1,4 +1,4 @@
-import linkDB from './db.js'
+/* import linkDB from '../dbConnection/link.db'
 
 export const getProperties = async () => {
   const query = 'SELECT * FROM propiedades'
@@ -35,3 +35,4 @@ export const deleteProperty = async (id) => {
   const result = await linkDB(query, [id])
   return result.rowCount > 0
 }
+ */

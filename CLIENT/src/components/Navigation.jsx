@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -10,7 +10,7 @@ import '../components/Navigation.css'
 import { useAuth } from '../context/AuthContext'
 
 const Navigation = () => {
-    const { isAuthenticated, login, logout } = useAuth()
+    const { isAuthenticated, logout } = useAuth()
 
     return (
         <Navbar expand="lg" className="mainNav">
@@ -23,7 +23,7 @@ const Navigation = () => {
                     <Nav className="me-auto">
                         {isAuthenticated ? (
                             <>
-                                <NavLink to='/private'>
+                                <NavLink to='/usersesion'>
                                     <Button variant="dark" className='btnPerfil'>
                                         PERFIL
                                     </Button>
@@ -40,11 +40,11 @@ const Navigation = () => {
                         ) : (
                             <>
                                 <NavLink to="/inicia_sesion">
-                                    <Button variant="dark" className='btnIniciar' onClick={login}>
+                                    <Button variant="dark" className='btnIniciar'>
                                         INGRESAR <FontAwesomeIcon icon={faUser} />
                                     </Button>
                                 </NavLink>
-                                <NavLink to='/registro'>
+                                <NavLink to='/register'>
                                     <Button variant="secondary">
                                         REGISTRO <FontAwesomeIcon icon={faPen} />
                                     </Button>
@@ -59,3 +59,4 @@ const Navigation = () => {
 }
 
 export default Navigation
+

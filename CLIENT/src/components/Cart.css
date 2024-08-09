@@ -5,11 +5,14 @@
 .cartTitle h2 {
 color: black;
 text-align: center;
+padding: 2%;
 }
 
 .cartDetail {
-    margin-left: 15%;
     min-height: 70vh;
+    width: 60%;
+    margin-top: 5%;
+    margin-left: 20%;
 }
 
 .cartDetail ul {

@@ -1,4 +1,4 @@
-import { getProperties, postProperties } from '../models/properties.models.js'
+/* import { getProperties, postProperties } from '../models/properties.models.js'
 
 export const getAllPropertiesController = async (req, res) => {
   try {
@@ -60,4 +60,4 @@ export const deletePropertyController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error al eliminar la propiedad', message: error.message })
   }
-}
+} */

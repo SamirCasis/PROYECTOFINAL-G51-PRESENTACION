@@ -9,7 +9,7 @@ const Cart = () => {
   return (
     <main className='cartContainer'>
       <article className='cartTitle'>
-        <h2>Carrito de Compras</h2>
+        <h2>Carrito de Compras 🛒</h2>
       </article>
       <section className='cartDetail'>
         {cart.length > 0 ? (

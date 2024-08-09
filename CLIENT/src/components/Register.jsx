@@ -1,60 +1,27 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import { UserContext } from '../context/UserContext'
 
-const Register = ({ setError }) => {
-  const [data, setData] = useState({
-    nombre: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-  })
-
-  const validarDatos = (e) => {
-    e.preventDefault();
-
-    const { nombre, email, phone, password, confirmPassword } = data;
-    const validacionDatos = !nombre || !email || !phone || !password || !confirmPassword;
-    const validarPassword = password !== confirmPassword;
-
-    if (validacionDatos) {
-      setError({
-        error: true,
-        msg: 'Completa todos los campos',
-        color: 'warning',
-      });
-    } else if (validarPassword) {
-      setError({
-        error: true,
-        msg: 'Las contraseñas no coinciden',
-        color: 'danger',
-      });
-    } else {
-      setError({
-        error: true,
-        msg: 'Cuenta validada!',
-        color: 'success',
-      })
-    }
-  }
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  }
-
-  const [showPassword, setShowPassword] = useState(false);
+const Register = () => {
+  const {
+    userData,
+    handleChange,
+    toggleShowPassword,
+    validateAndRegister,
+    error,
+  } = useContext(UserContext)
 
   return (
-    <Form className="formulario mt-4" onSubmit={(e) => validarDatos(e)}>
+    <Form className="formulario mt-4" onSubmit={validateAndRegister}>
       <Form.Group className='mb-3'>
         <input
           type="text"
-          name='nombre'
+          name='name'
           className='form-control'
           placeholder='Nombre'
           onChange={handleChange}
-          value={data.nombre}
+          value={userData.name}
         />
       </Form.Group>
       <Form.Group className='mb-3 mt-2'>
@@ -64,7 +31,7 @@ const Register = ({ setError }) => {
           className='form-control'
           placeholder='Email'
           onChange={handleChange}
-          value={data.email}
+          value={userData.email}
         />
       </Form.Group>
       <Form.Group className='mb-3 mt-2'>
@@ -74,41 +41,51 @@ const Register = ({ setError }) => {
           className='form-control'
           placeholder='Teléfono'
           onChange={handleChange}
-          value={data.phone}
+          value={userData.phone}
         />
       </Form.Group>
       <Form.Group className='mb-3 mt-2'>
         <input
-          type={showPassword ? 'text' : 'password'}
+          type={userData.showPassword ? 'text' : 'password'}
           name='password'
           className='form-control'
           placeholder='Contraseña'
           onChange={handleChange}
-          value={data.password}
+          value={userData.password}
         />
       </Form.Group>
       <Form.Group className='mb-3 mt-2'>
         <input
-          type={showPassword ? 'text' : 'password'}
+          type={userData.showPassword ? 'text' : 'password'}
           name='confirmPassword'
           className='form-control'
           placeholder='Confirmar Contraseña'
           onChange={handleChange}
-          value={data.confirmPassword}
+          value={userData.confirmPassword}
         />
       </Form.Group>
       <Form.Group className="checkbox mb-3" controlId="formBasicCheckbox">
         <Form.Check
           type="checkbox"
           reverse label="Mostrar contraseña"
-          onChange={() => setShowPassword(!showPassword)}
+          onChange={toggleShowPassword}
         />
       </Form.Group>
       <Button variant="success" type="submit">
         Ingresar
       </Button>
+      {error.error && (
+        <div className={`alert alert-${error.color}`} role="alert">
+          {error.msg}
+        </div>
+      )}
     </Form>
   )
 }
 
 export default Register
+
+
+
+
+

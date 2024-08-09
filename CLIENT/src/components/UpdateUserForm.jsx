@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext.jsx'
 import { Form, Button, Container } from 'react-bootstrap'
-import './UpdateForm.css'
+import './UpdateUserForm.css'
 
 const UpdateForm = () => {
     const { userData, setUserData } = useContext(UserContext)

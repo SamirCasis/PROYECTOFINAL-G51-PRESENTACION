@@ -1,5 +1,5 @@
 import { Link, Routes, Route } from 'react-router-dom'
-import UpdateForm from './UpdateForm'
+import UpdateUserForm from './UpdateUserForm'
 import Favorites from './Favorites'
 import PropertyFilter from './PropertyFilter'
 import './UserProfile.css'
@@ -14,12 +14,9 @@ const userProfile = () => {
         <PropertyFilter />
       </section>
       <Routes>
-        <Route path="update" element={<UpdateForm />} />
+        <Route path="update" element={<UpdateUserForm />} />
         <Route path="favorites" element={<Favorites />} />
       </Routes>
-      <section>
-
-      </section>
     </main>
   )
 }

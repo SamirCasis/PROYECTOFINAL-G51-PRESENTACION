@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Alerta from './Alerta'
 import './Login.css'
+import axios from 'axios'
 
 const Login = () => {
     const [data, setData] = useState({
@@ -15,7 +16,7 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const validarDatos = (e) => {
+    const validarDatos = async (e) => {
         e.preventDefault();
         const { email, password } = data;
 
@@ -26,21 +27,29 @@ const Login = () => {
                 color: 'warning',
             });
         } else {
-            if (email === 'admin@example.com' && password === 'admin123') {
-                setError({
-                    error: false,
-                    msg: 'Inicio de sesión como administrador exitoso!',
-                    color: 'success',
-                });
-                navigate('/admin');
-            } else if (email === 'user@example.com' && password === 'user123') {
-                setError({
-                    error: false,
-                    msg: 'Inicio de sesión como usuario exitoso!',
-                    color: 'success',
-                });
-                navigate('/private');
-            } else {
+            try {
+                const response = await axios.post('/api/login', { email, password })
+                const { token, role } = response.data;
+
+                // Almacena el token en el almacenamiento local
+                localStorage.setItem('token', token);
+
+                if (role === 'admin') {
+                    setError({
+                        error: false,
+                        msg: 'Inicio de sesión como administrador exitoso!',
+                        color: 'success',
+                    });
+                    navigate('/admin');
+                } else if (role === 'user') {
+                    setError({
+                        error: false,
+                        msg: 'Inicio de sesión como usuario exitoso!',
+                        color: 'success',
+                    });
+                    navigate('/private');
+                }
+            } catch (error) {
                 setError({
                     error: true,
                     msg: 'Credenciales inválidas',
@@ -95,3 +104,4 @@ const Login = () => {
 }
 
 export default Login
+

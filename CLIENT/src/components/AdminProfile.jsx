@@ -1,34 +1,30 @@
-import { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { PropertiesContext } from '../context/PropertiesContext'
+import React from 'react'
+import { Link, Routes, Route } from 'react-router-dom'
+import UpdatePropertyForm from './UpdatePropertyForm'
+import AddPropertyForm from './AddPropertyForm'
+import UpdateAdminForm from './UpdateAdminForm'
 import './AdminProfile.css'
+import PropertyFilter from './PropertyFilter'
 
-const AdminProfile = ({ onSelectProperty }) => {
-  const { properties } = useContext(PropertiesContext);
-
+const AdminProfile = () => {
   return (
     <main className='adminMain'>
       <section className='adminPanel'>
         <h1>ADMINISTRADOR</h1>
-        <article>
-          <Link className='options' to='/admin/addProperty'>AGREGAR PROPIEDAD</Link>
-          <Link className='options' to='/admin/updateProfile'>ACTUALIZAR PROPIEDAD</Link>
-        </article>
-        <h2>PROPIEDADES</h2>
-        <ul className='property-list'>
-          {properties.map((property) => (
-            <li
-              key={property.id}
-              className='property-item'
-              onClick={() => onSelectProperty(property)}
-            >
-              {property.title}
-            </li>
-          ))}
-        </ul>
+        <Link className='options' to='/admin/updateProfile'>ACTUALIZAR DATOS</Link>
+        <Link className='options' to='/admin/addProperty'>AGREGAR PROPIEDAD</Link>
+        <Link className='options' to='/admin/updateProperty'>ACTUALIZAR PROPIEDAD</Link>
+        <PropertyFilter />
       </section>
+      <Routes>
+        <Route path="updateProfile" element={<UpdateAdminForm />} />
+        <Route path="addProperty" element={<AddPropertyForm />} />
+        <Route path="updateProperty" element={<UpdatePropertyForm />} />
+      </Routes>
     </main>
   )
 }
 
 export default AdminProfile
+
+
