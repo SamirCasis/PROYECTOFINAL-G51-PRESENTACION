@@ -15,21 +15,21 @@ export const getUsers = async (req, res) => {
 export const registerUser = async (req, res) => {
   try {
     const { name, phone, email, password, rol } = req.body
+    const userRole = rol || 'usuario'
     const existingUser = await getUserModels(null)
 
     if (existingUser.some(user => user.email === email)) {
       return res.status(400).json({ error: 'El correo electrónico ya está en uso' })
     }
-
-    const newUser = await createUserModel(name, phone, email, password, rol)
+    const newUser = await createUserModel(name, phone, email, password, userRole)
     const token = generateToken(newUser[0].id)
-
     res.status(201).json({ user: newUser[0], token })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Error al registrar el usuario' })
   }
 }
+
 
 export const loginUser = async (req, res) => {
   try {

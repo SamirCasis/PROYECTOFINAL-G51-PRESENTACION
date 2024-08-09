@@ -56,7 +56,7 @@ const UserProvider = ({ children }) => {
       })
 
       try {
-        const response = await axios.post(URLBASE + "/register", {
+        const response = await axios.post(`${URLBASE}/api/users/register`, {
           name,
           email,
           phone,

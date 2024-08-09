@@ -46,3 +46,7 @@ CREATE TABLE transactions (
     FOREIGN KEY (user_id)       REFERENCES users(id)        ON DELETE CASCADE,
     FOREIGN KEY (property_id)   REFERENCES properties(id)   ON DELETE CASCADE
 );
+
+ALTER TABLE users
+ALTER COLUMN rol SET DEFAULT 'user';
+
