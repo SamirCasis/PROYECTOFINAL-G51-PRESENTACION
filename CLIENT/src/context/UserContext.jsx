@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -17,9 +17,17 @@ const UserProvider = ({ children }) => {
     confirmPassword: '',
     showPassword: false,
   })
-
   const [error, setError] = useState({ error: false, msg: '', color: '' })
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token')
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    } else {
+      delete axios.defaults.headers.common['Authorization']
+    }
+  }, [])
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value })
@@ -56,7 +64,7 @@ const UserProvider = ({ children }) => {
       })
 
       try {
-        const response = await axios.post(`${URLBASE}/api/v1/users/register`, {
+        const response = await axios.post(`http://localhost:5200/api/v1/users/register`, {
           name,
           email,
           phone,
@@ -88,6 +96,7 @@ const UserProvider = ({ children }) => {
       const response = await axios.post(`${URLBASE}/api/v1/users/login`, credentials)
       const { token, rol } = response.data
       sessionStorage.setItem('token', token)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser({ token, rol })
     } catch (error) {
       console.error('Error en login', error)
@@ -96,6 +105,7 @@ const UserProvider = ({ children }) => {
 
   const logout = () => {
     sessionStorage.removeItem('token')
+    delete axios.defaults.headers.common['Authorization']
     setUser(null)
   }
 
@@ -123,3 +133,5 @@ const UserProvider = ({ children }) => {
 }
 
 export { UserContext, UserProvider }
+
+

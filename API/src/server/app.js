@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import swagger from '../../config/swagger/swagger.js'
-import usersRoutes from '../server/routes/users.routes.js'
-import propertiesRoutes from '../server/routes/properties.routes.js'
+import usersRoutes from './routes/users.routes.js'
+import propertiesRoutes from './routes/properties.routes.js'
 import { serverLog } from '../middlewares/user.middlewares.js'
 
 const app = express()

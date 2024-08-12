@@ -17,9 +17,8 @@ export const getUserModels = async (id) => {
   return(result)
 }
 
-
 export const getUserByEmail = async (email) => {
-  const query = 'SELECT email, password, rol FROM users WHERE email = $1'
+  const query = 'SELECT id, email, password, rol FROM users WHERE email = $1'
   let result
   try {
     result = await linkDB(query, [email])

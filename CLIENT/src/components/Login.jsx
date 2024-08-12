@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Alerta from './Alerta'
@@ -7,6 +8,7 @@ import './Login.css'
 import axios from 'axios'
 
 const Login = () => {
+  const { userData, setUserData } = useContext(UserContext)
   const [data, setData] = useState({ email: '', password: '' })
   const [error, setError] = useState({ error: false, msg: '', color: '' })
   const [showPassword, setShowPassword] = useState(false)
@@ -44,10 +46,11 @@ const Login = () => {
 
     try {
       const response = await axios.post(URLBASE, { email, password })
-      const { token, rol } = response.data
-
+      const { token, rol, id } = response.data
+console.log(response.data)
       sessionStorage.setItem('token', token)
-
+      sessionStorage.setItem('id', id)
+      setUserData({ ...userData, id, email})
       if (rol === 'admin') {
         setError({ error: false, msg: 'Inicio de sesión como administrador exitoso!', color: 'success' })
         navigate('/')

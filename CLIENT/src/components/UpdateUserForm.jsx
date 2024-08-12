@@ -5,112 +5,143 @@ import axios from 'axios'
 import './UpdateUserForm.css'
 
 const UpdateUserForm = () => {
-    const { userData, setUserData } = useContext(UserContext)
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState(null)
-    const userId = userData.id
+  const { userData, setUserData } = useContext(UserContext)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [formValid, setFormValid] = useState(false)
+  const userId = sessionStorage.getItem('id')
+  const URLBASE = 'http://localhost:5200/api/v1/users/'
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5200/api/v1/users/${userId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                    }
-                })
-                const user = response.data
-                setName(user.name)
-                setEmail(user.email)
-                setPhone(user.phone)
-            } catch (error) {
-                setError('Error al cargar los datos del usuario')
-            }
-        }
-        fetchUserData()
-    }, [userId])
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${URLBASE}${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          }
+        })
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+        const user = response.data[0] || {}
+        setName(user.name || '')
+        setEmail(user.email || '')
+        setPhone(user.phone || '')
+      } catch (error) {
+        setError('Error al cargar los datos del usuario')
+      } finally {
+        setLoading(false)
+      }
+    }
+    if (userId) {
+      fetchUserData()
+    }
+  }, [userId])
 
-        const updatedUser = {
-            name,
-            email,
-            phone,
-            password
-        }
+  useEffect(() => {
+    const isValid = name && email && phone && (password || !password)
+    setFormValid(isValid)
+  }, [name, email, phone, password])
 
-        try {
-            const response = await axios.put(`http://localhost:5200/api/v1/users/${userId}`, updatedUser, {
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                }
-            })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-            if (response.status === 200) {
-                setUserData(updatedUser)
-                alert('Usuario actualizado con éxito')
-            }
-        } catch (error) {
-            setError('Error al actualizar el usuario')
-        }
+    const updatedUser = {
+      ...(name && { name }),
+      ...(email && { email }),
+      ...(phone && { phone }),
+      ...(password && { password })
     }
 
-    return (
-        <Container className="updForm mt-5 bg-secondary text-white" style={{ maxWidth: '300px' }}>
-            <h2 className="text-center mb-4">Actualiza tus datos</h2>
-            {error && <p className="text-danger">{error}</p>}
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formName">
-                    <Form.Label>Nombre:</Form.Label>
-                    <Form.Control 
-                        type="text" 
-                        placeholder="Ingresa tu nombre"
-                        value={name} 
-                        onChange={(e) => setName(e.target.value)} 
-                    />
-                </Form.Group>
+    try {
+      const response = await axios.put(`${URLBASE}${userId}`, updatedUser, {
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+      })
 
-                <Form.Group className="mb-3" controlId="formEmail">
-                    <Form.Label>Email:</Form.Label>
-                    <Form.Control 
-                        type="email" 
-                        placeholder="Ingresa tu email"
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                    />
-                </Form.Group>
+      if (response.status === 200) {
+        setUserData({ ...userData, name, email, phone, password })
+        alert('Usuario actualizado con éxito')
+      }
+    } catch (error) {
+      console.log('Error updating user:', error)
+      setError('Error al actualizar el usuario')
+    }
+  }
 
-                <Form.Group className="mb-3" controlId="formPhone">
-                    <Form.Label>Teléfono:</Form.Label>
-                    <Form.Control 
-                        type="text" 
-                        placeholder="Ingresa tu nuevo número"
-                        value={phone} 
-                        onChange={(e) => setPhone(e.target.value)} 
-                    />
-                </Form.Group>
+  if (loading) {
+    return <p>Cargando datos del usuario...</p>
+  }
 
-                <Form.Group className="mb-3" controlId="formPass">
-                    <Form.Label>Nueva Contraseña:</Form.Label>
-                    <Form.Control 
-                        type="password" 
-                        placeholder="Ingresa tu nueva contraseña"
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
-                    />
-                </Form.Group>
+  return (
+    <Container className="updForm mt-5 bg-secondary text-white" style={{ maxWidth: '300px' }}>
+      <h2 className="text-center mb-4">Actualiza tus datos</h2>
+      {error && <p className="text-danger">{error}</p>}
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formName">
+          <Form.Label>Nombre:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder={name || 'Ingresa tu nombre'}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
 
-                <Button variant="primary" type="submit" className="w-100">
-                    Actualizar
-                </Button>
-            </Form>
-        </Container>
-    )
+        <Form.Group className="mb-3" controlId="formEmail">
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder={email || 'Ingresa tu email'}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formPhone">
+          <Form.Label>Teléfono:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder={phone || 'Ingresa tu teléfono'}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formPassword">
+          <Form.Label>Contraseña:</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Ingresa tu nueva contraseña (dejar en blanco si no deseas cambiarla)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Button
+          variant="primary"
+          type="submit"
+          className="w-100"
+          disabled={!formValid}
+        >
+          Actualizar
+        </Button>
+      </Form>
+    </Container>
+  )
 }
 
 export default UpdateUserForm
+
+
+
+
+
+
+
+
 
 

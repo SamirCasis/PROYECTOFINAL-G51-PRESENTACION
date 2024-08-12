@@ -1,5 +1,6 @@
 import { createUserModel, getUserModels, getUserByEmail, updateUserModel, deleteUserModel } from '../models/users.models.js'
-import { generateToken } from '../../helpers/generateToken.js'
+import { jwtSign, jwtDecode } from '../../utils/jwt.js'
+import { tokenVerify } from '../../middlewares/authToken.middlewares.js'
 import bcrypt from 'bcrypt'
 
 export const getUsers = async (req, res) => {
@@ -12,13 +13,25 @@ export const getUsers = async (req, res) => {
   }
 }
 
+/* export const getUsersValidate = async (req, res) => {
+  try {
+    tokenVerify(req, res)
+    let payload = jwtDecode(req.header("Authorization"))
+    let user = await getUserByEmail({ email: payload.email })
+    res.status(200).json([user])
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al validar usuarios' })
+  }
+} */
+
 export const getUserByIdController = async (req, res) => {
   const userId = req.params.id
 
   try {
-    const result = await getUserById(userId)
-    if (result.rows.length > 0) {
-      res.json(result.rows[0]) // Enviar el usuario encontrado como respuesta
+    const result = await getUserModels(userId)
+    if (result) {
+      res.json(result)
     } else {
       res.status(404).json({ message: 'Usuario no encontrado' })
     }
@@ -61,8 +74,8 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ msg: 'Contraseña incorrecta' })
     }
 
-    const token = generateToken({ id: user.id })
-    res.status(200).json({ token, rol: user.rol })
+    const token = jwtSign({ id: user.id })
+    res.status(200).json({ token, rol: user.rol, id: user.id })
   } catch (error) {
     console.error('Error del servidor:', error)
     res.status(500).json({ msg: 'Error del servidor' })
