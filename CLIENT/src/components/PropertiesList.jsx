@@ -1,25 +1,36 @@
-import React, { useContext } from 'react'
-import { PropertiesContext } from '../context/PropertiesContext'
+// src/components/PropertyList.jsx
 
-const PropertiesList = ({ onSelectProperty }) => {
-  const { properties } = useContext(PropertiesContext)
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-  return (
-    <main>
-      <h2>PROPIEDADES</h2>
-      <ul className='property-list'>
-        {properties.map((property) => (
-          <li
-            key={property.id}
-            className='property-item'
-            onClick={() => onSelectProperty(property)}
-          >
-            {property.title}
-          </li>
-        ))}
-      </ul>
-    </main>
-  )
+const PropertyList = () => {
+    const [properties, setProperties] = useState([])
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        const fetchProperties = async () => {
+            try {
+                const response = await axios.get('http://localhost:5200/api/properties')
+                setProperties(response.data)
+            } catch (error) {
+                setError('Error al cargar propiedades')
+            }
+        }
+        fetchProperties()
+    }, [])
+
+    return (
+        <div>
+            <h2>Listado de Propiedades</h2>
+            {error && <p className="error">{error}</p>}
+            <ul>
+                {properties.map(property => (
+                    <li key={property.id}>{property.title}</li>
+                ))}
+            </ul>
+        </div>
+    )
 }
 
-export default PropertiesList
+export default PropertyList
+

@@ -10,15 +10,8 @@ CREATE TABLE properties (
     bedrooms            INT             NOT NULL,
     bathrooms           INT             NOT NULL,
     description         VARCHAR(255)    NOT NULL,
-    price               INT             NOT NULL
-);
-
-CREATE TABLE property_images (
-    id                  SERIAL          PRIMARY KEY,
-    property_id         INT             NOT NULL,
-    image_url           VARCHAR(255)    NOT NULL,
-    is_main             BOOLEAN         DEFAULT FALSE,
-    FOREIGN KEY (property_id)   REFERENCES properties(id)   ON DELETE CASCADE
+    price               INT             NOT NULL,
+    imgurl              VARCHAR(255)
 );
 
 CREATE TABLE users (
@@ -47,6 +40,4 @@ CREATE TABLE transactions (
     FOREIGN KEY (property_id)   REFERENCES properties(id)   ON DELETE CASCADE
 );
 
-ALTER TABLE users
-ALTER COLUMN rol SET DEFAULT 'user';
 

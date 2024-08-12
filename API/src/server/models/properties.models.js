@@ -1,38 +1,47 @@
-/* import linkDB from '../dbConnection/link.db'
+import linkDB from '../dbConnection/link.db.js'
 
-export const getProperties = async () => {
-  const query = 'SELECT * FROM propiedades'
+// Obtiene todas las propiedades
+export const getPropertiesModel = async () => {
+  const query = 'SELECT * FROM properties'
   const rows = await linkDB(query)
   return rows
 }
 
-export const postProperties = async (title, location, meters, bedrooms, bathrooms, description, price) => {
-  const query = `INSERT INTO propiedades (title, location, meters, bedrooms, bathrooms, description, price) 
-                 VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`
-  const rows = await linkDB(query, [title, location, meters, bedrooms, bathrooms, description, price])
-  return rows[0]
-}
-
-export const getPropertyById = async (id) => {
-  const query = 'SELECT * FROM propiedades WHERE id = $1'
+// Obtiene una propiedad por ID
+export const getPropertyByIdModel = async (id) => {
+  const query = 'SELECT * FROM properties WHERE id = $1'
   const rows = await linkDB(query, [id])
   return rows[0]
 }
 
-export const updateProperty = async (id, updates) => {
+// Inserta una nueva propiedad y retorna la propiedad insertada
+export const postPropertiesModel = async (title, location, meters, bedrooms, bathrooms, description, price, imgurl) => {
+  const query = `
+    INSERT INTO properties (title, location, meters, bedrooms, bathrooms, description, price, imgurl) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
+  const rows = await linkDB(query, [title, location, meters, bedrooms, bathrooms, description, price, imgurl])
+  return rows[0]
+}
+
+// Actualiza una propiedad por ID
+export const updatePropertyModel = async (id, updates) => {
   const setQuery = Object.keys(updates)
     .map((key, index) => `${key} = $${index + 2}`)
     .join(', ')
-  
-  const query = `UPDATE propiedades SET ${setQuery} WHERE id = $1 RETURNING *`
+
+  const query = `UPDATE properties SET ${setQuery} WHERE id = $1 RETURNING *`
   const values = [id, ...Object.values(updates)]
   const rows = await linkDB(query, values)
   return rows[0]
 }
 
-export const deleteProperty = async (id) => {
-  const query = 'DELETE FROM propiedades WHERE id = $1'
+// Elimina una propiedad por ID y retorna un booleano que indica si la eliminación fue exitosa
+export const deletePropertyModel = async (id) => {
+  const query = 'DELETE FROM properties WHERE id = $1'
   const result = await linkDB(query, [id])
   return result.rowCount > 0
 }
- */
+
+
+
+

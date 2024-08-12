@@ -15,7 +15,7 @@ const Navigation = () => {
     return (
         <Navbar expand="lg" className="mainNav">
             <NavLink to='/' className='logoHome'>
-                <img className='logoNav' src='./logoSAYE.svg' alt='Logo' />
+                <img className='logoNav' src='https://imagizer.imageshack.com/img923/2874/NIWy7s.png' alt='Logo' />
             </NavLink>
             <Container className='col-5'>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -39,7 +39,7 @@ const Navigation = () => {
                             </>
                         ) : (
                             <>
-                                <NavLink to="/inicia_sesion">
+                                <NavLink to="/login">
                                     <Button variant="dark" className='btnIniciar'>
                                         INGRESAR <FontAwesomeIcon icon={faUser} />
                                     </Button>

@@ -4,9 +4,9 @@ import './Carousel.css'
 
 const Carousel = () => {
   const images = [
-    { src: '/imgportada.jpg' },
-    { src: '/imguser.jpg' },
-    { src: '/imgsesion.jpg' },
+    { src: 'https://imagizer.imageshack.com/img923/8900/PNyS7g.jpg' },
+    { src: 'https://imagizer.imageshack.com/img924/5199/b6yMzp.jpg' },
+    { src: 'https://imagizer.imageshack.com/img924/9035/v3ixL8.jpg' },
   ]
 
   return (

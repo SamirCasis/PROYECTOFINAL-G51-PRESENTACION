@@ -10,10 +10,11 @@
 
 .logoHome {
     margin-left: 20%;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.8));
 }
 
 .logoNav {
-    width: 30%;
+    width: 20%;
 }
 
 .btnIniciar {

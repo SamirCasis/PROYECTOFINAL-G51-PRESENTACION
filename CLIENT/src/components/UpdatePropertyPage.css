@@ -1,0 +1,39 @@
+.updatePropertyPage {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 1rem;
+  }
+  
+  .updatePropertyPage h1 {
+    margin-bottom: 20px;
+    color: #343a40;
+  }
+  
+  .updatePropertyPage .text-success {
+    color: #28a745;
+  }
+  
+  .updatePropertyPage .text-danger {
+    color: #dc3545;
+  }
+  
+  .updatePropertyPage .row {
+    margin-top: 10px;
+  }
+  
+  .updatePropertyPage .col-md-4 {
+    border-right: 1px solid #dee2e6;
+  }
+   
+  .updatePropertyPage .col-md-4 .list-group-item:hover {
+    background-color: #e9ecef;
+  }
+  
+  .updatePropertyPage .col-md-8 .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .updatePropertyPage .form-group label {
+    font-weight: bold;
+  }
+  

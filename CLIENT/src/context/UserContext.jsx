@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -6,7 +7,9 @@ const UserContext = createContext()
 const URLBASE = "http://localhost:5200"
 
 const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null)
   const [userData, setUserData] = useState({
+    id: '',
     name: '',
     email: '',
     phone: '',
@@ -15,11 +18,8 @@ const UserProvider = ({ children }) => {
     showPassword: false,
   })
 
-  const [error, setError] = useState({
-    error: false,
-    msg: '',
-    color: '',
-  })
+  const [error, setError] = useState({ error: false, msg: '', color: '' })
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value })
@@ -56,7 +56,7 @@ const UserProvider = ({ children }) => {
       })
 
       try {
-        const response = await axios.post(`${URLBASE}/api/users/register`, {
+        const response = await axios.post(`${URLBASE}/api/v1/users/register`, {
           name,
           email,
           phone,
@@ -71,6 +71,7 @@ const UserProvider = ({ children }) => {
             confirmButtonText: 'OK',
           })
         }
+        navigate('/login')
       } catch (error) {
         console.error('Error al registrar el usuario', error)
         setError({
@@ -82,6 +83,24 @@ const UserProvider = ({ children }) => {
     }
   }
 
+  const login = async (credentials) => {
+    try {
+      const response = await axios.post(`${URLBASE}/api/v1/users/login`, credentials)
+      const { token, rol } = response.data
+      sessionStorage.setItem('token', token)
+      setUser({ token, rol })
+    } catch (error) {
+      console.error('Error en login', error)
+    }
+  }
+
+  const logout = () => {
+    sessionStorage.removeItem('token')
+    setUser(null)
+  }
+
+  const isAuthenticated = () => !!user
+
   return (
     <UserContext.Provider
       value={{
@@ -90,8 +109,12 @@ const UserProvider = ({ children }) => {
         handleChange,
         toggleShowPassword,
         validateAndRegister,
+        login,
+        logout,
+        isAuthenticated,
         error,
         setError,
+        user,
       }}
     >
       {children}
@@ -100,5 +123,3 @@ const UserProvider = ({ children }) => {
 }
 
 export { UserContext, UserProvider }
-
-

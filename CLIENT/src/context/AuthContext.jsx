@@ -6,43 +6,53 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [role, setRole] = useState('')
+  const [rol, setRol] = useState('')
   const navigate = useNavigate()
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/login', { email, password })
-      const { token, role } = response.data
+      const response = await axios.post('/api/users/login', { email, password })
+      const { token, rol } = response.data
 
-      localStorage.setItem('token', token)
+      sessionStorage.setItem('token', token)
       setIsAuthenticated(true)
-      setRole(role)
-      navigate(role === 'admin' ? '/admin' : '/private')
+      setRol(rol)
+      navigate(rol === 'admin' ? '/admin' : '/usersesion')
     } catch (error) {
       console.error('Error de inicio de sesión', error)
     }
   }
 
   const logout = () => {
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
     setIsAuthenticated(false)
-    setRole('')
-    navigate('/login')
+    setRol('')
+    navigate('/')
   }
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem('token')
+      const token = sessionStorage.getItem('token')
       if (token) {
         try {
-          const response = await axios.get('/api/check-auth', { headers: { Authorization: `Bearer ${token}` } })
+          const response = await axios.get('/api/check-auth', {
+            headers: { Authorization: `Bearer ${token}` }
+          })
           if (response.status === 200) {
             setIsAuthenticated(true)
-            setRole(response.data.role)
+            setRol(response.data.role)
+          } else {
+            setIsAuthenticated(false)
+            setRol('')
           }
         } catch (error) {
           console.error('Error al verificar autenticación', error)
+          setIsAuthenticated(false)
+          setRol('')
         }
+      } else {
+        setIsAuthenticated(false)
+        setRol('')
       }
     }
 
@@ -50,11 +60,15 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, role, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, rol, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
 export const useAuth = () => useContext(AuthContext)
+
+
+
+
 

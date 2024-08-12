@@ -26,7 +26,7 @@ const Cart = () => {
               {cart.map((property) => (
                 <tr key={property.id}>
                   <td>
-                    <img src={property.img} alt={property.title} style={{ width: '100px' }} />
+                    <img src={property.imgurl} alt={property.title} style={{ width: '100px', height: 'auto' }} />
                   </td>
                   <td>{property.title}</td>
                   <td>{property.price} UF</td>
@@ -54,13 +54,14 @@ const Cart = () => {
         >
           Eliminar Todo
         </Button>
-        <Button variant='success' onClick={irAlHome}> PAGAR </Button>
+        <Button variant='success' onClick={irAlHome}>PAGAR</Button>
       </footer>
     </main>
   )
 }
 
 export default Cart
+
 
 
 

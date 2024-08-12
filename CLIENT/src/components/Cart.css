@@ -1,5 +1,9 @@
 .cartContainer {
     background-color: rgba(204, 204, 204, 0.247);
+    background-image: url('https://imagizer.imageshack.com/img924/7269/K2hs0g.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .cartTitle h2 {

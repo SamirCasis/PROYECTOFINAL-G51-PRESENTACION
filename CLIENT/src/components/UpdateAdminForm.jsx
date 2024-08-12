@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Form, Button } from 'react-bootstrap'
+import Swal from 'sweetalert2'
 import './UpdateAdminForm.css'
 
 const UpdateAdminForm = () => {
@@ -43,7 +44,7 @@ const UpdateAdminForm = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Error al actualizar el perfil. Por favor, intenta nuevamente más tarde.',
+                text: 'Error al actualizar el perfil',
                 confirmButtonText: 'OK'
             })
         }

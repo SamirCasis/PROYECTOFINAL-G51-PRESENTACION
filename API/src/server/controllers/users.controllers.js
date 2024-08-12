@@ -1,10 +1,10 @@
-import { createUserModel, getUserModels, updateUserModel, deleteUserModel } from '../models/users.models.js'
+import { createUserModel, getUserModels, getUserByEmail, updateUserModel, deleteUserModel } from '../models/users.models.js'
 import { generateToken } from '../../helpers/generateToken.js'
 import bcrypt from 'bcrypt'
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await getUserModels(null)
+    const users = await getUserModels()
     res.status(200).json({ users })
   } catch (error) {
     console.error(error)
@@ -12,50 +12,62 @@ export const getUsers = async (req, res) => {
   }
 }
 
-export const registerUser = async (req, res) => {
+export const getUserByIdController = async (req, res) => {
+  const userId = req.params.id
+
   try {
-    const { name, phone, email, password, rol } = req.body
-    const userRole = rol || 'usuario'
+    const result = await getUserById(userId)
+    if (result.rows.length > 0) {
+      res.json(result.rows[0]) // Enviar el usuario encontrado como respuesta
+    } else {
+      res.status(404).json({ message: 'Usuario no encontrado' })
+    }
+  } catch (error) {
+    console.error('Error al obtener el usuario:', error)
+    res.status(500).json({ message: 'Error interno del servidor' })
+  }
+}
+
+export const registerUser = async (req, res) => {
+  const { name, phone, email, password, rol } = req.body
+  try {
+    const userRol = rol || 'usuario'
     const existingUser = await getUserModels(null)
 
     if (existingUser.some(user => user.email === email)) {
       return res.status(400).json({ error: 'El correo electrónico ya está en uso' })
     }
-    const newUser = await createUserModel(name, phone, email, password, userRole)
-    const token = generateToken(newUser[0].id)
-    res.status(201).json({ user: newUser[0], token })
+
+    const newUser = await createUserModel(name, phone, email, password, userRol)
+    res.status(201).json({ user: newUser[0] })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Error al registrar el usuario' })
   }
 }
 
-
 export const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body
-    const users = await getUserModels(null)
-    const user = users.find(u => u.email === email)
+  const { email, password } = req.body
 
-    if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' })
+  try {
+    let user = await getUserByEmail(email)
+
+    if (user == null) {
+      return res.status(401).json({ msg: 'Usuario y/o contraseña no encontrados' })
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
-
     if (!isMatch) {
-      return res.status(401).json({ error: 'Contraseña incorrecta' })
+      return res.status(401).json({ msg: 'Contraseña incorrecta' })
     }
 
-    const token = generateToken(user.id)
-
-    res.status(200).json({ user, token })
+    const token = generateToken({ id: user.id })
+    res.status(200).json({ token, rol: user.rol })
   } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Error al iniciar sesión' })
+    console.error('Error del servidor:', error)
+    res.status(500).json({ msg: 'Error del servidor' })
   }
 }
-
 
 export const updUser = async (req, res) => {
   try {

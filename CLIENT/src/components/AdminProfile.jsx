@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, Routes, Route } from 'react-router-dom'
-import UpdatePropertyForm from './UpdatePropertyForm'
+import UpdatePropertyPage from './UpdatePropertyPage'
 import AddPropertyForm from './AddPropertyForm'
 import UpdateAdminForm from './UpdateAdminForm'
 import './AdminProfile.css'
@@ -11,7 +11,7 @@ const AdminProfile = () => {
     <main className='adminMain'>
       <section className='adminPanel'>
         <h1>ADMINISTRADOR</h1>
-        <Link className='options' to='/admin/updateProfile'>ACTUALIZAR DATOS</Link>
+        <Link className='options' to='/admin/updateProfile'>ACTUALIZAR PERFIL</Link>
         <Link className='options' to='/admin/addProperty'>AGREGAR PROPIEDAD</Link>
         <Link className='options' to='/admin/updateProperty'>ACTUALIZAR PROPIEDAD</Link>
         <PropertyFilter />
@@ -19,7 +19,7 @@ const AdminProfile = () => {
       <Routes>
         <Route path="updateProfile" element={<UpdateAdminForm />} />
         <Route path="addProperty" element={<AddPropertyForm />} />
-        <Route path="updateProperty" element={<UpdatePropertyForm />} />
+        <Route path="updateProperty" element={<UpdatePropertyPage />} />
       </Routes>
     </main>
   )

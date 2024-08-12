@@ -12,10 +12,10 @@ const App = () => {
       <Routes>
         <Route path='/' element={<HomeView />} />
         <Route path='/register' element={<RegisterView />} />
-        <Route path='/inicia_sesion' element={<LoginView />} />
+        <Route path='/login' element={<LoginView />} />
         <Route path='/usersesion/*' element={<UserView />} />
         <Route path='/admin/*' element={<AdminView />} />
-        <Route path='/propiedad/:id' element={<PropertyView />} />
+        <Route path='/api/v1/property/:id' element={<PropertyView />} />
         <Route path='/carrito' element={<CartView />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

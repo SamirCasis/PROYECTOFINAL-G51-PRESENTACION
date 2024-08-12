@@ -1,7 +1,7 @@
 .registro {
   display: flex;
   flex-direction: column;
-  background-image: url(/imgsesion.jpg);
+  background-image: url('https://imagizer.imageshack.com/img924/9035/v3ixL8.jpg');
   background-color: rgb(25, 42, 61);
   background-size: contain;
   background-position: center;

@@ -1,63 +1,84 @@
-/* import { getProperties, postProperties } from '../models/properties.models.js'
+import {
+  getPropertiesModel,
+  postPropertiesModel,
+  updatePropertyModel,
+  deletePropertyModel,
+  getPropertyByIdModel
+} from '../models/properties.models.js'
 
-export const getAllPropertiesController = async (req, res) => {
+// Obtiene todas las propiedades
+export const getProperties = async (req, res) => {
   try {
-    const properties = await getProperties()
-    res.json(properties)
+    const properties = await getPropertiesModel()
+    res.status(200).json(properties)
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener las propiedades', message: error.message })
+    console.error('Error retrieving properties:', error)
+    res.status(500).json({ message: 'Error retrieving properties' })
   }
 }
 
-export const getPropertyByIdController = async (req, res) => {
-  const { id } = req.params
+// Obtiene una propiedad por ID
+export const getPropertyById = async (req, res) => {
   try {
-    const property = await getPropertyById(id)
+    const property = await getPropertyByIdModel(req.params.id)
     if (property) {
-      res.json(property)
+      res.status(200).json(property)
     } else {
-      res.status(404).json({ error: 'Propiedad no encontrada' })
+      res.status(404).json({ message: 'Property not found' })
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener la propiedad', message: error.message })
+    console.error('Error retrieving property:', error)
+    res.status(500).json({ message: 'Error retrieving property' })
   }
 }
 
-export const postPropertiesController = async (req, res) => {
-  const { title, location, meters, bedrooms, bathrooms, description, price } = req.body
+// Inserta una nueva propiedad
+export const addProperty = async (req, res) => {
+  const { title, location, meters, bedrooms, bathrooms, description, price, imgurl } = req.body
+
   try {
-    const property = await postProperties(title, location, meters, bedrooms, bathrooms, description, price)
-    res.status(201).json(property)
+    const newProperty = await postPropertiesModel(title, location, meters, bedrooms, bathrooms, description, price, imgurl)
+    res.status(201).json(newProperty)
   } catch (error) {
-    res.status(500).json({ error: 'Error al agregar la propiedad', message: error.message })
+    console.error('Error adding property:', error)
+    res.status(500).json({ error: 'Error adding property' })
   }
 }
 
-export const updatePropertyController = async (req, res) => {
-  const { id } = req.params
-  const updates = req.body
+// Actualiza una propiedad por ID
+export const updateProperty = async (req, res) => {
   try {
-    const updatedProperty = await updateProperty(id, updates)
+    const { id } = req.params
+    const updates = req.body
+    const updatedProperty = await updatePropertyModel(id, updates)
+
     if (updatedProperty) {
-      res.json(updatedProperty)
+      res.status(200).json(updatedProperty)
     } else {
-      res.status(404).json({ error: 'Propiedad no encontrada' })
+      res.status(404).json({ message: 'Property not found' })
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar la propiedad', message: error.message })
+    console.error('Error updating property:', error)
+    res.status(500).json({ message: 'Error updating property' })
   }
 }
 
-export const deletePropertyController = async (req, res) => {
-  const { id } = req.params
+// Elimina una propiedad por ID
+export const deleteProperty = async (req, res) => {
   try {
-    const result = await deleteProperty(id)
-    if (result) {
+    const { id } = req.params
+    const deleted = await deletePropertyModel(id)
+    if (deleted) {
       res.status(204).end()
     } else {
-      res.status(404).json({ error: 'Propiedad no encontrada' })
+      res.status(404).json({ message: 'Property not found' })
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar la propiedad', message: error.message })
+    console.error('Error deleting property:', error)
+    res.status(500).json({ message: 'Error deleting property' })
   }
-} */
+}
+
+
+
+

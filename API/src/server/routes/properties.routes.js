@@ -1,16 +1,28 @@
-/* import { Router } from 'express'
-import { getAllPropertiesController, postPropertiesController } from '../controllers/properties.controllers.js'
-import { authenticateJWT } from '../../middlewares/authenticateMiddleware.js'
-import { authorizeRoles } from '../../middlewares/roleMiddleware.js'
+import express from 'express'
+import {
+  getProperties,
+  getPropertyById,
+  addProperty,
+  updateProperty,
+  deleteProperty
+} from '../controllers/properties.controllers.js'
 
-const router = Router()
-router.use(authenticateJWT)
+const router = express.Router()
 
+// Obtiene todas las propiedades
+router.get('/properties', getProperties)
 
-router.get('/propiedades', getAllPropertiesController)
-router.get('/propiedades/:id', )
-router.post('/propiedades', authorizeRoles('admin'), postPropertiesController)
-router.put('/propiedades/:id', authorizeRoles('admin'), )
-router.delete('/propiedades/:id', authorizeRoles('admin'), )
+// Obtiene una propiedad por ID
+router.get('/properties/:id', getPropertyById)
 
-export default router */
+// Inserta una nueva propiedad
+router.post('/properties', addProperty)
+
+// Actualiza una propiedad por ID
+router.put('/properties/:id', updateProperty)
+
+// Elimina una propiedad por ID
+router.delete('/properties/:id', deleteProperty)
+
+export default router
+

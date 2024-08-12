@@ -11,14 +11,12 @@
 }
 
 .mainFooter {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    justify-content: space-evenly;
+  display: flex;
 }
 
 .linkFooter {
     text-align: start;
+    margin-left: 10%;
 }
 
 .linkFooter li {
@@ -31,20 +29,14 @@
     font-weight: 500;
 }
 
-.logoFooter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-
 .logoFooter img {
-    width: 35%;
+    width: 15%;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
-    margin-left: 25%;
+    margin-left: 16%;
 }
 
 .contacto {
     text-align: end;
+    margin-right: 10%;
+    width: 30%;
 }

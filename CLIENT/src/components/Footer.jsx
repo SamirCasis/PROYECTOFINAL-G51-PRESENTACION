@@ -12,11 +12,11 @@ const Footer = () => {
           <section className='linkFooter'>
             <ul type='none'>
               <li><Link to="/">INICIO</Link></li>
-              <li><Link to="/registro">REGISTRO</Link></li>
+              <li><Link to="/register">REGISTRO</Link></li>
             </ul>
           </section>
           <article className='logoFooter'>
-            <img src='./logoSAYE.svg' alt='logo Empresa' />
+            <img src='https://imagizer.imageshack.com/img923/2874/NIWy7s.png' alt='logo Empresa' />
           </article>
           <section className='contacto'>
             <a

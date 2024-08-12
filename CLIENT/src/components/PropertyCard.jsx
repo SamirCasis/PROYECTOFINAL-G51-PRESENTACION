@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { PropertiesContext } from '../context/PropertiesContext'
 import { CartContext } from '../context/CartContext'
@@ -8,30 +8,25 @@ const PropertyCard = () => {
   const { id } = useParams()
   const { properties } = useContext(PropertiesContext)
   const { agregarCarrito } = useContext(CartContext)
-  const property = properties.find((prop) => prop.id === parseInt(id))
 
-  const [currentImage, setCurrentImage] = useState(property?.img || '')
+  const [property, setProperty] = useState(null)
+  const [currentImage, setCurrentImage] = useState('')
+
+  useEffect(() => {
+    const foundProperty = properties.find((prop) => prop.id === parseInt(id))
+    setProperty(foundProperty)
+    setCurrentImage(foundProperty?.imgurl || '')
+  }, [id, properties])
 
   if (!property) {
-    return <h2>Propiedad no encontrada</h2>;
+    return <h2>Propiedad no encontrada</h2>
   }
 
   return (
     <main className="card-full">
       <div className="card-detail">
         <div className="main-image">
-          <img src={currentImage} alt="Current" />
-        </div>
-        <div className="thumbnail-container">
-          {property.additionalImages?.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Thumbnail ${index}`}
-              onMouseEnter={() => setCurrentImage(image)}
-              className="thumbnail"
-            />
-          ))}
+          <img src={currentImage} alt="imagen propiedad" />
         </div>
         <div className="card-body">
           <h3 className="card-title">{property.title}</h3>
@@ -43,7 +38,11 @@ const PropertyCard = () => {
         </div>
       </div>
     </main>
-  );
-};
+  )
+}
 
 export default PropertyCard
+
+
+
+

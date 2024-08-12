@@ -12,7 +12,8 @@ const AddPropertyForm = () => {
     bedrooms: '',
     bathrooms: '',
     description: '',
-    price: ''
+    price: '',
+    imgurl: '' // Cambiado de imageUrl a imgurl
   })
 
   const handleChange = (e) => {
@@ -26,7 +27,7 @@ const AddPropertyForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('/api/v1/properties', formData)
+      await axios.post('http://localhost:5200/api/v1/properties', formData)
       alert('Propiedad agregada!')
     } catch (error) {
       console.error('Error adding property:', error)
@@ -37,6 +38,7 @@ const AddPropertyForm = () => {
     <Container className="addPropertyForm mt-4 mb-4 bg-secondary">
       <h2 className="text-center mb-4">Agregar Nueva Propiedad</h2>
       <Form onSubmit={handleSubmit}>
+
         <Form.Group className="mb-3" controlId="formTitle">
           <Form.Label>Título</Form.Label>
           <Form.Control
@@ -121,6 +123,18 @@ const AddPropertyForm = () => {
           />
         </Form.Group>
 
+        <Form.Group className="mb-3" controlId="formImgurl">
+          <Form.Label>URL de la Imagen Principal</Form.Label>
+          <Form.Control
+            type="text"
+            name="imgurl" // Cambiado de imageUrl a imgurl
+            value={formData.imgurl}
+            onChange={handleChange}
+            placeholder="URL de la imagen principal"
+            required
+          />
+        </Form.Group>
+
         <Button variant="warning" type="submit" className="w-100">
           Agregar Propiedad
         </Button>
@@ -130,3 +144,11 @@ const AddPropertyForm = () => {
 }
 
 export default AddPropertyForm
+
+
+
+
+
+
+
+

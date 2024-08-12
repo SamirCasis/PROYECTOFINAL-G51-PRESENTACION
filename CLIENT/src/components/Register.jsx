@@ -1,7 +1,7 @@
+import { UserContext } from '../context/UserContext'
 import { useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { UserContext } from '../context/UserContext'
 
 const Register = () => {
   const {

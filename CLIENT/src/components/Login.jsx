@@ -7,101 +7,102 @@ import './Login.css'
 import axios from 'axios'
 
 const Login = () => {
-    const [data, setData] = useState({
-        email: '',
-        password: '',
-    });
+  const [data, setData] = useState({ email: '', password: '' })
+  const [error, setError] = useState({ error: false, msg: '', color: '' })
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const URLBASE = "http://localhost:5200/api/v1/users/login"
 
-    const [error, setError] = useState({ error: false, msg: '', color: '' });
-    const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate();
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
 
-    const validarDatos = async (e) => {
-        e.preventDefault();
-        const { email, password } = data;
+  const validarDatos = async (e) => {
+    e.preventDefault();
+    const { email, password } = data;
 
-        if (!email || !password) {
-            setError({
-                error: true,
-                msg: 'Completa todos los campos',
-                color: 'warning',
-            });
-        } else {
-            try {
-                const response = await axios.post('/api/login', { email, password })
-                const { token, role } = response.data;
-
-                // Almacena el token en el almacenamiento local
-                localStorage.setItem('token', token);
-
-                if (role === 'admin') {
-                    setError({
-                        error: false,
-                        msg: 'Inicio de sesión como administrador exitoso!',
-                        color: 'success',
-                    });
-                    navigate('/admin');
-                } else if (role === 'user') {
-                    setError({
-                        error: false,
-                        msg: 'Inicio de sesión como usuario exitoso!',
-                        color: 'success',
-                    });
-                    navigate('/private');
-                }
-            } catch (error) {
-                setError({
-                    error: true,
-                    msg: 'Credenciales inválidas',
-                    color: 'danger',
-                });
-            }
-        }
+     if (!email || !password) {
+      setError({
+        error: true,
+        msg: 'Completa todos los campos',
+        color: 'warning'
+      })
+      return
     }
 
-    const handleChange = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value });
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      setError({
+        error: true,
+        msg: 'Formato de email inválido',
+        color: 'warning'
+      })
+      return
     }
 
-    return (
-        <div className="login-container">
-            <Alerta error={error} />
-            <Form className="formulario mt-4" onSubmit={validarDatos}>
-                <Form.Group className="mb-3 mt-2">
-                    <input
-                        type="email"
-                        name="email"
-                        className="form-control"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        value={data.email}
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3 mt-2">
-                    <input
-                        type={showPassword ? 'text' : 'password'}
-                        name="password"
-                        className="form-control"
-                        placeholder="Contraseña"
-                        onChange={handleChange}
-                        value={data.password}
-                    />
-                </Form.Group>
-                <Form.Group className="checkbox mb-3" controlId="formBasicCheckbox">
-                    <Form.Check
-                        type="checkbox"
-                        reverse
-                        label="Mostrar contraseña"
-                        onChange={() => setShowPassword(!showPassword)}
-                    />
-                </Form.Group>
-                <Button variant="success" type="submit">
-                    Ingresar
-                </Button>
-            </Form>
-        </div>
-    )
+    setLoading(true)
+
+    try {
+      const response = await axios.post(URLBASE, { email, password })
+      const { token, rol } = response.data
+
+      sessionStorage.setItem('token', token)
+
+      if (rol === 'admin') {
+        setError({ error: false, msg: 'Inicio de sesión como administrador exitoso!', color: 'success' })
+        navigate('/')
+      } else if (rol === 'usuario') {
+        setError({ error: false, msg: 'Inicio de sesión como usuario exitoso!', color: 'success' })
+        navigate('/')
+      }
+    } catch (error) {
+      setError({ error: true, msg: error.response?.data?.message || 'Error al iniciar sesión', color: 'danger' })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="login-container">
+      <Alerta error={error} />
+      <Form className="formulario mt-4" onSubmit={validarDatos}>
+        <Form.Group className="mb-3 mt-2">
+          <Form.Control
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            value={data.email}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3 mt-2">
+          <Form.Control
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            placeholder="Contraseña"
+            onChange={handleChange}
+            value={data.password}
+          />
+        </Form.Group>
+        <Form.Group className="checkbox mb-3" controlId="formBasicCheckbox">
+          <Form.Check
+            type="checkbox"
+            label="Mostrar contraseña"
+            onChange={() => setShowPassword(!showPassword)}
+          />
+        </Form.Group>
+        <Button variant="success" type="submit" disabled={loading}>
+          {loading ? 'Cargando...' : 'Ingresar'}
+        </Button>
+      </Form>
+    </div>
+  )
 }
 
 export default Login
+
+
+
+
+
 
