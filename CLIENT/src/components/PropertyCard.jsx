@@ -30,7 +30,13 @@ const PropertyCard = () => {
         </div>
         <div className="card-body">
           <h3 className="card-title">{property.title}</h3>
-          <p>{property.description}</p>
+          <ul>
+            <li>{property.description}</li>
+            <li>Ubicación: {property.location}</li>
+            <li>Metros cuadrados: {property.meters}</li>
+            <li>Dormitorios: {property.bedrooms}</li>
+            <li>Baños: {property.bathrooms}</li>
+          </ul>
           <p className="price"><strong>{property.price} UF</strong></p>
           <button className="buy-button" onClick={() => agregarCarrito(property.id)}>
             COMPRAR
