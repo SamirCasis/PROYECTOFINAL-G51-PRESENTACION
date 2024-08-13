@@ -33,10 +33,10 @@ const Navigation = () => {
             <NavLink to='/' className='logoHome'>
                 <img className='logoNav' src='https://imagizer.imageshack.com/img923/2874/NIWy7s.png' alt='Logo' />
             </NavLink>
-            <Container className='buttonsNav col-5'>
+            <Container className='col-5'>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav className="buttonsNav me-auto">
                         {isAuthenticated ? (
                             <>
                                 <Button variant="dark" className='btnPerfil' onClick={handleProfileClick}>

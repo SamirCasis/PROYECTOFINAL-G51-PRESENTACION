@@ -8,8 +8,8 @@
     z-index: 100;
 }
 
-.buttonsNav {
-    justify-content: space-around;
+.buttonsNav Button {
+   margin-left: 20px;
 }
 
 .logoHome {
