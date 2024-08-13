@@ -48,7 +48,7 @@ export const PropertiesProvider = ({ children }) => {
   }
 
   const goToDetail = (id) => {
-    navigate(`/api/v1/property/${id}`)
+    navigate(`/property/${id}`)
   }
 
   const updateProperty = async (id, updates) => {

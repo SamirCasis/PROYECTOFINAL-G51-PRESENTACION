@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -42,7 +42,7 @@ const Navigation = () => {
                                 <Button variant="dark" className='btnPerfil' onClick={handleProfileClick}>
                                     PERFIL
                                 </Button>
-                                <NavLink to='/carrito'>
+                                <NavLink to='/cart'>
                                     <Button variant="secondary">
                                         CARRITO
                                     </Button>

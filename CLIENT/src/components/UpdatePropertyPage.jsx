@@ -14,7 +14,7 @@ const UpdatePropertyPage = () => {
     bathrooms: '',
     description: '',
     price: '',
-    imgurl: ''  // Campo para la imagen principal
+    imgurl: ''
   })
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(null)
@@ -41,7 +41,7 @@ const UpdatePropertyPage = () => {
         bathrooms: selectedProperty.bathrooms,
         description: selectedProperty.description,
         price: selectedProperty.price,
-        imgurl: selectedProperty.imgurl || ''  // Inicializa la URL de la imagen principal
+        imgurl: selectedProperty.imgurl || ''
       })
     }
   }, [selectedProperty])

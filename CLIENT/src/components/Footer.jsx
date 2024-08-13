@@ -13,7 +13,7 @@ const Footer = () => {
             <ul type='none'>
               <li><Link to="/">INICIO</Link></li>
               <li><Link to="/register">REGISTRO</Link></li>
-              <li><Link to="/login">INICIA SESION</Link></li>
+              <li><Link to="/login">INICIAR SESION</Link></li>
             </ul>
           </section>
           <article className='logoFooter'>

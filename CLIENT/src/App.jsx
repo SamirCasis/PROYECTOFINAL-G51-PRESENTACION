@@ -15,12 +15,12 @@ const App = () => {
         <Route path='/' element={<HomeView />} />
         <Route path='/register' element={<RegisterView />} />
         <Route path='/login' element={<LoginView />} />
+        <Route path='*' element={<NotFound />} />
         {/* Rutas Protegidas */}
         <Route path='/usersesion/*' element={<ProtectedRoute element={UserView} requiredRole="user" />} />
         <Route path='/admin/*' element={<ProtectedRoute element={AdminView} requiredRole="admin" />} />
         <Route path='/cart' element={<ProtectedRoute element={CartView} requiredRole={null} />} />
         <Route path='/property/:id' element={<ProtectedRoute element={PropertyView} requiredRole={null} />} />
-        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </>

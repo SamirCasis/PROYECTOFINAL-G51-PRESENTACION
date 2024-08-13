@@ -9,7 +9,7 @@ import './PropertySample.css'
 
 const PropertySample = ({ property, isFavorite, onToggleFavorite }) => {
   const { goToDetail } = useContext(PropertiesContext)
-  const { user, logout } = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const isAuthenticated = !!user
   const navigate = useNavigate()
 

@@ -3,6 +3,7 @@ import cors from 'cors'
 import swagger from '../../config/swagger/swagger.js'
 import usersRoutes from './routes/users.routes.js'
 import propertiesRoutes from './routes/properties.routes.js'
+import transactionsRoutes from './routes/transactions.routes.js'
 import { serverLog } from '../middlewares/user.middlewares.js'
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(serverLog)
 // Rutas
 app.use('/api/v1', usersRoutes)
 app.use('/api/v1', propertiesRoutes)
+app.use('/api/v1', transactionsRoutes)
 
 // Inicia el servidor
 app.listen(PORT, () => {

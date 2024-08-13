@@ -6,7 +6,7 @@ const LoginView = () => {
     return (
         <>
             <main className="registro">
-                <h1>INICIA SESION</h1>
+                <h1>INICIAR SESION</h1>
                 <section className='formulario1'>
                     <Sesion />
                 </section>

@@ -1,6 +1,5 @@
 import { createUserModel, getUserModels, getUserByEmail, updateUserModel, deleteUserModel } from '../models/users.models.js'
-import { jwtSign, jwtDecode } from '../../utils/jwt.js'
-import { tokenVerify } from '../../middlewares/authToken.middlewares.js'
+import { jwtSign } from '../../utils/jwt.js'
 import bcrypt from 'bcrypt'
 
 export const getUsers = async (req, res) => {
@@ -12,18 +11,6 @@ export const getUsers = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener los usuarios' })
   }
 }
-
-/* export const getUsersValidate = async (req, res) => {
-  try {
-    tokenVerify(req, res)
-    let payload = jwtDecode(req.header("Authorization"))
-    let user = await getUserByEmail({ email: payload.email })
-    res.status(200).json([user])
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Error al validar usuarios' })
-  }
-} */
 
 export const getUserByIdController = async (req, res) => {
   const userId = req.params.id

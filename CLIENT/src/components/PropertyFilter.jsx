@@ -16,8 +16,6 @@ const PropertyFilter = () => {
         <option value="">Seleccione una opción</option>
         <option value="name-asc">Nombre (A-Z)</option>
         <option value="name-desc">Nombre (Z-A)</option>
-{/*         <option value="price-asc">Precio (Menor a Mayor)</option> // considerar en backend
-        <option value="price-desc">Precio (Mayor a Menor)</option> */}
       </select>
     </div>
   )

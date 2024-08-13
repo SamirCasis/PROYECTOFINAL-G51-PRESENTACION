@@ -1,10 +1,77 @@
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
+import { UserContext } from '../context/UserContext'
 import { Button, Table } from 'react-bootstrap'
+import Swal from 'sweetalert2'
+import axios from 'axios'
 import './Cart.css'
 
 const Cart = () => {
-  const { cart, eliminarCarrito, eliminarTodoCarrito, sumaTotal, irAlHome } = useContext(CartContext)
+  const { cart, eliminarCarrito, eliminarTodoCarrito, sumaTotal } = useContext(CartContext)
+  const { userData } = useContext(UserContext)
+  const userId = userData?.id
+  const URLBASE = "http://localhost:5200"
+
+  const handlePayment = async () => {
+    if (!userId) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo procesar el pago. Usuario no encontrado.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
+      return
+    }
+
+    try {
+      const responses = await Promise.all(cart.map(property => 
+        axios.post(`${URLBASE}/api/v1/transactions`, {
+          user_id: userId,
+          property_id: property.id
+        }, {
+          headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          }
+        })
+      ))
+
+      const transactionId = responses[0]?.data?.id
+
+      if (!transactionId) {
+        throw new Error('No se pudo obtener el ID de la transacción')
+      }
+
+      const transactionResponse = await axios.get(`${URLBASE}/api/v1/transactions/${transactionId}`, {
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+      })
+
+      const transaction = transactionResponse.data
+
+      Swal.fire({
+        title: 'Compra Realizada',
+        html: `
+          <p><strong>Propiedades Compradas:</strong> ${cart.map(p => p.title).join(', ')}</p>
+          <p><strong>Valor Total:</strong> ${sumaTotal()} UF</p>
+          <p><strong>Fecha de Compra:</strong> ${new Date(transaction.purchase_date).toLocaleDateString()}</p>
+          <p><strong>Correo de Contacto:</strong> ventas.ysalas@gmail.com</p>
+        `,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      })
+
+      eliminarTodoCarrito()
+    } catch (error) {
+      console.error('Error al procesar el pago', error)
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema al procesar el pago. Inténtalo nuevamente.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
+    }
+  }
 
   return (
     <main className='cartContainer'>
@@ -26,7 +93,7 @@ const Cart = () => {
               {cart.map((property) => (
                 <tr key={property.id}>
                   <td>
-                    <img src={property.imgurl} alt={property.title} style={{ width: '100px', height: 'auto' }} />
+                    <img src={property.imgurl} alt={property.title} />
                   </td>
                   <td>{property.title}</td>
                   <td>{property.price} UF</td>
@@ -54,14 +121,10 @@ const Cart = () => {
         >
           Eliminar Todo
         </Button>
-        <Button variant='success' onClick={irAlHome}>PAGAR</Button>
+        <Button variant='success' onClick={handlePayment}>PAGAR</Button>
       </footer>
     </main>
   )
 }
 
 export default Cart
-
-
-
-

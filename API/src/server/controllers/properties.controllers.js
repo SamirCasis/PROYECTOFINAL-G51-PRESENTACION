@@ -6,7 +6,6 @@ import {
   getPropertyByIdModel
 } from '../models/properties.models.js'
 
-// Obtiene todas las propiedades
 export const getProperties = async (req, res) => {
   try {
     const properties = await getPropertiesModel()
@@ -17,7 +16,6 @@ export const getProperties = async (req, res) => {
   }
 }
 
-// Obtiene una propiedad por ID
 export const getPropertyById = async (req, res) => {
   try {
     const property = await getPropertyByIdModel(req.params.id)
@@ -32,7 +30,6 @@ export const getPropertyById = async (req, res) => {
   }
 }
 
-// Inserta una nueva propiedad
 export const addProperty = async (req, res) => {
   const { title, location, meters, bedrooms, bathrooms, description, price, imgurl } = req.body
 
@@ -45,7 +42,6 @@ export const addProperty = async (req, res) => {
   }
 }
 
-// Actualiza una propiedad por ID
 export const updateProperty = async (req, res) => {
   try {
     const { id } = req.params
@@ -63,7 +59,6 @@ export const updateProperty = async (req, res) => {
   }
 }
 
-// Elimina una propiedad por ID
 export const deleteProperty = async (req, res) => {
   try {
     const { id } = req.params
