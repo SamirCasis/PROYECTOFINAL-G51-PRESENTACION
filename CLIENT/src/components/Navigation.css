@@ -8,6 +8,10 @@
     z-index: 100;
 }
 
+.buttonsNav {
+    justify-content: space-around;
+}
+
 .logoHome {
     margin-left: 20%;
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.8));

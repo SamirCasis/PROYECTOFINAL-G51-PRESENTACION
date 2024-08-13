@@ -64,7 +64,7 @@ const UserProvider = ({ children }) => {
       })
 
       try {
-        const response = await axios.post(`http://localhost:5200/api/v1/users/register`, {
+        const response = await axios.post(`${URLBASE}/api/v1/users/register`, {
           name,
           email,
           phone,
@@ -94,10 +94,11 @@ const UserProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       const response = await axios.post(`${URLBASE}/api/v1/users/login`, credentials)
-      const { token, rol } = response.data
+      const { token, rol, id, email } = response.data
       sessionStorage.setItem('token', token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser({ token, rol })
+      setUserData(prev => ({ ...prev, id, email }))
     } catch (error) {
       console.error('Error en login', error)
     }
@@ -107,6 +108,16 @@ const UserProvider = ({ children }) => {
     sessionStorage.removeItem('token')
     delete axios.defaults.headers.common['Authorization']
     setUser(null)
+    setUserData({
+      id: '',
+      name: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+      showPassword: false,
+    })
+    navigate('/')
   }
 
   const isAuthenticated = () => !!user
@@ -133,5 +144,3 @@ const UserProvider = ({ children }) => {
 }
 
 export { UserContext, UserProvider }
-
-

@@ -5,26 +5,24 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Alerta from './Alerta'
 import './Login.css'
-import axios from 'axios'
 
 const Login = () => {
-  const { userData, setUserData } = useContext(UserContext)
+  const { setUserData, login } = useContext(UserContext)
   const [data, setData] = useState({ email: '', password: '' })
   const [error, setError] = useState({ error: false, msg: '', color: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-  const URLBASE = "http://localhost:5200/api/v1/users/login"
 
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value })
   }
 
   const validarDatos = async (e) => {
-    e.preventDefault();
-    const { email, password } = data;
+    e.preventDefault()
+    const { email, password } = data
 
-     if (!email || !password) {
+    if (!email || !password) {
       setError({
         error: true,
         msg: 'Completa todos los campos',
@@ -45,19 +43,9 @@ const Login = () => {
     setLoading(true)
 
     try {
-      const response = await axios.post(URLBASE, { email, password })
-      const { token, rol, id } = response.data
-console.log(response.data)
-      sessionStorage.setItem('token', token)
-      sessionStorage.setItem('id', id)
-      setUserData({ ...userData, id, email})
-      if (rol === 'admin') {
-        setError({ error: false, msg: 'Inicio de sesión como administrador exitoso!', color: 'success' })
-        navigate('/')
-      } else if (rol === 'usuario') {
-        setError({ error: false, msg: 'Inicio de sesión como usuario exitoso!', color: 'success' })
-        navigate('/')
-      }
+      await login({ email, password })
+      setError({ error: false, msg: 'Inicio de sesión exitoso!', color: 'success' })
+      navigate('/')
     } catch (error) {
       setError({ error: true, msg: error.response?.data?.message || 'Error al iniciar sesión', color: 'danger' })
     } finally {
@@ -103,6 +91,8 @@ console.log(response.data)
 }
 
 export default Login
+
+
 
 
 

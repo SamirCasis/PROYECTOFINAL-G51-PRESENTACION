@@ -13,7 +13,7 @@ const AddPropertyForm = () => {
     bathrooms: '',
     description: '',
     price: '',
-    imgurl: '' // Cambiado de imageUrl a imgurl
+    imgurl: ''
   })
 
   const handleChange = (e) => {
@@ -35,7 +35,7 @@ const AddPropertyForm = () => {
   }
 
   return (
-    <Container className="addPropertyForm mt-4 mb-4 bg-secondary">
+    <Container className="addPropertyForm mt-4 mb-4">
       <h2 className="text-center mb-4">Agregar Nueva Propiedad</h2>
       <Form onSubmit={handleSubmit}>
 
@@ -127,7 +127,7 @@ const AddPropertyForm = () => {
           <Form.Label>URL de la Imagen Principal</Form.Label>
           <Form.Control
             type="text"
-            name="imgurl" // Cambiado de imageUrl a imgurl
+            name="imgurl"
             value={formData.imgurl}
             onChange={handleChange}
             placeholder="URL de la imagen principal"

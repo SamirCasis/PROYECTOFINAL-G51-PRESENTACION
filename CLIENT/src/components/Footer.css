@@ -7,7 +7,6 @@
 
 .Footer h2 {
     padding-top: 20px;
-    margin-right: 5%;
 }
 
 .mainFooter {
@@ -16,6 +15,7 @@
 
 .linkFooter {
     text-align: start;
+    width: 20%;
     margin-left: 10%;
 }
 
@@ -32,7 +32,7 @@
 .logoFooter img {
     width: 15%;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
-    margin-left: 16%;
+    margin-left: 10%;
 }
 
 .contacto {

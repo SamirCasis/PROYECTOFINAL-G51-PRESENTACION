@@ -2,14 +2,15 @@ import { useContext } from 'react'
 import { Card, Button } from 'react-bootstrap'
 import IconHeart from './IconHeart'
 import { PropertiesContext } from '../context/PropertiesContext'
-import { useAuth } from '../context/AuthContext'
+import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import './PropertySample.css'
 
 const PropertySample = ({ property, isFavorite, onToggleFavorite }) => {
   const { goToDetail } = useContext(PropertiesContext)
-  const { isAuthenticated } = useAuth()
+  const { user, logout } = useContext(UserContext)
+  const isAuthenticated = !!user
   const navigate = useNavigate()
 
   const handleViewMore = () => {
@@ -76,6 +77,7 @@ const PropertySample = ({ property, isFavorite, onToggleFavorite }) => {
 }
 
 export default PropertySample
+
 
 
 

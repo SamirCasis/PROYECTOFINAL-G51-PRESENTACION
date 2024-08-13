@@ -13,7 +13,7 @@ const UpdateUserForm = () => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [formValid, setFormValid] = useState(false)
-  const userId = sessionStorage.getItem('id')
+  const userId = userData.id
   const URLBASE = 'http://localhost:5200/api/v1/users/'
 
   useEffect(() => {
@@ -30,14 +30,15 @@ const UpdateUserForm = () => {
         setEmail(user.email || '')
         setPhone(user.phone || '')
       } catch (error) {
+        console.error(error)
         setError('Error al cargar los datos del usuario')
       } finally {
         setLoading(false)
       }
     }
-    if (userId) {
+    if (userId != null) {
       fetchUserData()
-    }
+    } else console.log('revisar id', userId)
   }, [userId])
 
   useEffect(() => {

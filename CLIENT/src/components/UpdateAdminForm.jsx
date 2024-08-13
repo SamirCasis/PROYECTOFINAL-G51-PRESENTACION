@@ -51,12 +51,12 @@ const UpdateAdminForm = () => {
     }
 
     return (
-        <Container className="adminForm mt-5 bg-secondary text-white" style={{ maxWidth: '400px' }}>
+        <Container className="adminForm mt-5" style={{ maxWidth: '400px' }}>
             <h2 className="text-center mb-4">Actualiza tus datos</h2>
             {error && <div className="alert alert-danger">{error}</div>}
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formName">
-                    <Form.Label>Nombre:</Form.Label>
+                    <Form.Label>Nombre</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="Ingresa tu nombre"
@@ -66,7 +66,7 @@ const UpdateAdminForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formEmail">
-                    <Form.Label>Email:</Form.Label>
+                    <Form.Label>Email</Form.Label>
                     <Form.Control
                         type="email"
                         placeholder="Ingresa tu email"
@@ -76,7 +76,7 @@ const UpdateAdminForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPhone">
-                    <Form.Label>Teléfono:</Form.Label>
+                    <Form.Label>Teléfono</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="Ingresa tu número de teléfono"
@@ -86,7 +86,7 @@ const UpdateAdminForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">
-                    <Form.Label>Contraseña:</Form.Label>
+                    <Form.Label>Contraseña</Form.Label>
                     <Form.Control
                         type="password"
                         placeholder="Ingresa tu nueva contraseña"
