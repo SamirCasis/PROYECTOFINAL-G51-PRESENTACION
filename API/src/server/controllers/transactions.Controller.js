@@ -29,11 +29,11 @@ export const getTransactionByIdController = async (req, res) => {
     const transaction = await getTransactionById(id)
 
     if (!transaction) {
-      return res.status(404).json({ message: 'Transaction not found' })
+      return res.status(404).json({ message: 'Transaccion no encontrada' })
     }
 
     res.status(200).json(transaction)
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching transaction', error })
+    res.status(500).json({ message: 'error al obtener la transaccion', error })
   }
 }
