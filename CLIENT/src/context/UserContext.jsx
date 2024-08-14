@@ -22,12 +22,16 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem('token')
+    const rol = sessionStorage.getItem('rol')
+    const id = sessionStorage.getItem('id')
+    const email = sessionStorage.getItem('email')
+  
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    } else {
-      delete axios.defaults.headers.common['Authorization']
+      setUser({ token, rol })
+      setUserData({ id, email })
     }
-  }, [])
+  }, [setUser, setUserData])
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value })
@@ -96,6 +100,9 @@ const UserProvider = ({ children }) => {
       const response = await axios.post(`${URLBASE}/api/v1/users/login`, credentials)
       const { token, rol, id, email } = response.data
       sessionStorage.setItem('token', token)
+      sessionStorage.setItem('rol', rol)
+      sessionStorage.setItem('id', id)
+      sessionStorage.setItem('email', email)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser({ token, rol })
       setUserData(prev => ({ ...prev, id, email }))
