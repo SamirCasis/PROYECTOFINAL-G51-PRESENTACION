@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { Container, Form, Button, ListGroup } from 'react-bootstrap'
+import SweetAlert from 'sweetalert2'
+import { PropertiesContext } from '../context/PropertiesContext'
 import './UpdatePropertyPage.css'
 
 const UpdatePropertyPage = () => {
-  const [properties, setProperties] = useState([])
+  const { properties, updateProperty, setProperties } = useContext(PropertiesContext)
   const [selectedProperty, setSelectedProperty] = useState(null)
   const [formData, setFormData] = useState({
     title: '',
@@ -18,18 +20,6 @@ const UpdatePropertyPage = () => {
   })
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(null)
-
-  useEffect(() => {
-    const getProperties = async () => {
-      try {
-        const response = await axios.get('http://localhost:5200/api/v1/properties')
-        setProperties(response.data)
-      } catch (error) {
-        setError('Error al cargar las propiedades')
-      }
-    }
-    getProperties()
-  }, [])
 
   useEffect(() => {
     if (selectedProperty) {
@@ -58,8 +48,8 @@ const UpdatePropertyPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.put(`http://localhost:5200/api/v1/properties/${selectedProperty.id}`, formData)
-      if (response.status === 200) {
+      const updatedProperty = await updateProperty(selectedProperty.id, formData)
+      if (updatedProperty) {
         setSuccess('Propiedad actualizada con éxito')
         setError(null)
       }
@@ -68,8 +58,40 @@ const UpdatePropertyPage = () => {
     }
   }
 
+  const handleDeleteProperty = async (id, e) => {
+    e.stopPropagation()
+    const result = await SweetAlert.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás recuperar esta propiedad después de eliminarla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarla!',
+      cancelButtonText: 'Cancelar'
+    })
+  
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.delete(`http://localhost:5200/api/v1/properties/${id}`)
+        if (response.status === 200) {
+          setProperties(prevProperties => prevProperties.filter(property => property.id !== id))
+          setSuccess('Propiedad eliminada con éxito')
+          setError(null)
+          setSelectedProperty(null)
+        } else {
+          setError('No se pudo eliminar la propiedad. Inténtalo de nuevo.')
+        }
+      } catch (error) {
+        console.error('Error al eliminar la propiedad:', error)
+        setError('Error al eliminar la propiedad')
+        setSuccess(null)
+      }
+    }
+  }
+
   return (
-    <Container className="updatePropertyPage col-md-6 mt-4 mb-4">
+    <Container className="updatePropertyPage mt-4 mb-4">
       <h1>Actualizar Propiedad</h1>
       {error && <p className="text-danger">{error}</p>}
       {success && <p className="text-success">{success}</p>}
@@ -83,11 +105,19 @@ const UpdatePropertyPage = () => {
                 onClick={() => handleSelectProperty(property)}
               >
                 {property.title}
+                <Button
+                  variant="danger"
+                  size="sm"
+                  className="float-end"
+                  onClick={(e) => handleDeleteProperty(property.id, e)}
+                >
+                  Eliminar
+                </Button>
               </ListGroup.Item>
             ))}
           </ListGroup>
         </div>
-        <div className="col-md-7">
+        <div className="col-md-8">
           {selectedProperty && (
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formTitle">
@@ -175,6 +205,12 @@ const UpdatePropertyPage = () => {
 }
 
 export default UpdatePropertyPage
+
+
+
+
+
+
 
 
 

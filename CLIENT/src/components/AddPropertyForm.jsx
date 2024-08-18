@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Form, Button } from 'react-bootstrap'
 import './AddPropertyForm.css'
@@ -18,19 +19,37 @@ const AddPropertyForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }))
+    setFormData(prevData => ({ ...prevData, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       await axios.post('http://localhost:5200/api/v1/properties', formData)
-      alert('Propiedad agregada!')
+      Swal.fire({
+        icon: 'success',
+        title: 'Propiedad agregada!',
+        text: 'La propiedad ha sido agregada exitosamente.',
+        confirmButtonColor: '#ffa500',
+      })
+      setFormData({
+        title: '',
+        location: '',
+        meters: '',
+        bedrooms: '',
+        bathrooms: '',
+        description: '',
+        price: '',
+        imgurl: ''
+      })
     } catch (error) {
       console.error('Error adding property:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al agregar la propiedad. Inténtalo nuevamente.',
+        confirmButtonColor: '#d33',
+      })
     }
   }
 
@@ -38,7 +57,6 @@ const AddPropertyForm = () => {
     <Container className="addPropertyForm mt-4 mb-4">
       <h2 className="text-center mb-4">Agregar Nueva Propiedad</h2>
       <Form onSubmit={handleSubmit}>
-
         <Form.Group className="mb-3" controlId="formTitle">
           <Form.Label>Título</Form.Label>
           <Form.Control
@@ -144,6 +162,7 @@ const AddPropertyForm = () => {
 }
 
 export default AddPropertyForm
+
 
 
 

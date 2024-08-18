@@ -7,14 +7,11 @@ import PropertySample from './PropertySample'
 const Gallery = () => {
   const { properties, favoriteProperties, toggleFavorite, irAlDetalle } = useContext(PropertiesContext)
 
-  // Mostrar solo las primeras 3 propiedades
-  const visibleProperties = properties.slice(0, 3)
-
   return (
     <div className="container col-10 mt-5">
       <h1 className="mb-4">Propiedades en Venta</h1>
       <section className="row">
-        {visibleProperties.map((property) => (
+        {properties.map((property) => (
           <div className="col-md-4" key={property.id}>
             <PropertySample
               property={property}
@@ -30,6 +27,8 @@ const Gallery = () => {
 }
 
 export default Gallery
+
+
 
 
 

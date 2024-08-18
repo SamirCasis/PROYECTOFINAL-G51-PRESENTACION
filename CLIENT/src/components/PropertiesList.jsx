@@ -1,5 +1,3 @@
-// src/components/PropertyList.jsx
-
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -8,7 +6,7 @@ const PropertyList = () => {
     const [error, setError] = useState('')
 
     useEffect(() => {
-        const fetchProperties = async () => {
+        const getProperties = async () => {
             try {
                 const response = await axios.get('http://localhost:5200/api/properties')
                 setProperties(response.data)
@@ -16,7 +14,7 @@ const PropertyList = () => {
                 setError('Error al cargar propiedades')
             }
         }
-        fetchProperties()
+        getProperties()
     }, [])
 
     return (

@@ -6,8 +6,9 @@
   
   .card-detail {
     border-radius: 20px;
-    width: 60%;
+    width: 40%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
   }
   
   .main-image img {

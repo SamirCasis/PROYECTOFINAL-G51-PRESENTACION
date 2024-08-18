@@ -34,9 +34,8 @@ export const getUserByEmail = async (email) => {
 }
 
 export const updateUserModel = async (id, { name, phone, email, password }) => {
-  const hashedPassword = password ? await bcrypt.hash(password, 10) : null
   const query = 'UPDATE users SET name = COALESCE($1, name), phone = COALESCE($2, phone),email = COALESCE($3, email), password = COALESCE($4, password) WHERE id = $5 RETURNING *'
-  return linkDB(query, [name, phone, email, hashedPassword, id])
+  return linkDB(query, [name, phone, email, password, id])
 }
 
 export const deleteUserModel = async (id) => {

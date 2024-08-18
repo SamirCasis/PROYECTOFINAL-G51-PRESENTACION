@@ -31,9 +31,9 @@ export const updatePropertyModel = async (id, updates) => {
 }
 
 export const deletePropertyModel = async (id) => {
-  const query = 'DELETE FROM properties WHERE id = $1'
+  const query = 'DELETE FROM properties WHERE id = $1 RETURNING id'
   const result = await linkDB(query, [id])
-  return result.rowCount > 0
+  return result[0] || null
 }
 
 

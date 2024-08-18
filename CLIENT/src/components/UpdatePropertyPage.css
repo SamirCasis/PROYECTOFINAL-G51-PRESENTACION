@@ -1,39 +1,59 @@
 .updatePropertyPage {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 1rem;
-  }
-  
-  .updatePropertyPage h1 {
-    margin-bottom: 20px;
-    color: #343a40;
-  }
-  
-  .updatePropertyPage .text-success {
-    color: #28a745;
-  }
-  
-  .updatePropertyPage .text-danger {
-    color: #dc3545;
-  }
-  
-  .updatePropertyPage .row {
-    margin-top: 10px;
-  }
-  
-  .updatePropertyPage .col-md-4 {
-    border-right: 1px solid #dee2e6;
-  }
-   
-  .updatePropertyPage .col-md-4 .list-group-item:hover {
-    background-color: #e9ecef;
-  }
-  
-  .updatePropertyPage .col-md-8 .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .updatePropertyPage .form-group label {
-    font-weight: bold;
-  }
-  
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.updatePropertyPage h1 {
+  margin-bottom: 20px;
+  color: #343a40;
+  text-align: center;
+}
+
+.updatePropertyPage .text-success {
+  color: #28a745;
+}
+
+.updatePropertyPage .text-danger {
+  color: #dc3545;
+}
+
+.updatePropertyPage .row {
+  display: flex;
+}
+
+.updatePropertyPage .col-md-4 {
+  border-right: 1px solid #dee2e6;
+  position: sticky;
+  top: 0;
+  height: 80vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+.updatePropertyPage .col-md-4 h4 {
+  margin-bottom: 20px;
+}
+
+.updatePropertyPage .col-md-4 .list-group-item:hover {
+  background-color: #e9ecef;
+}
+
+.updatePropertyPage .col-md-4 .list-group-item {
+  cursor: pointer;
+}
+
+.updatePropertyPage .col-md-8 {
+  padding-left: 20px;
+  flex: 1;
+}
+
+.updatePropertyPage .form-group {
+  margin-bottom: 15px;
+}
+
+.updatePropertyPage .form-group label {
+  font-weight: bold;
+}

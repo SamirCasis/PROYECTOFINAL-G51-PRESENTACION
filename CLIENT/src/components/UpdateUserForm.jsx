@@ -116,7 +116,7 @@ const UpdateUserForm = () => {
           <Form.Label>Contraseña:</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Ingresa tu nueva contraseña (dejar en blanco si no deseas cambiarla)"
+            placeholder="dejar en blanco si no deseas cambiarla"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

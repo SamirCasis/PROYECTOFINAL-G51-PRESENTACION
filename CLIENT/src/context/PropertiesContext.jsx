@@ -11,7 +11,7 @@ export const PropertiesProvider = ({ children }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const fetchProperties = async () => {
+    const getProperties = async () => {
       try {
         const response = await axios.get('http://localhost:5200/api/v1/properties')
         setProperties(response.data)
@@ -20,7 +20,7 @@ export const PropertiesProvider = ({ children }) => {
       }
     }
 
-    fetchProperties()
+    getProperties()
   }, [])
 
   useEffect(() => {
@@ -68,30 +68,37 @@ export const PropertiesProvider = ({ children }) => {
     }
   }
 
-  const uploadPropertyImages = async (propertyId, images) => {
+  const deleteProperty = async (id) => {
     try {
-      await axios.post(`http://localhost:5200/api/v1/properties/${propertyId}/images`, {
-        imageUrls: images
-      })
+      const response = await axios.delete(`http://localhost:5200/api/v1/properties/${id}`)
+      if (response.status === 200) {
+        setProperties(prevProperties =>
+          prevProperties.filter(property => property.id !== id)
+        )
+      }
     } catch (error) {
-      console.error('Error uploading property images:', error)
+      console.error('Error deleting property:', error)
       throw error
     }
   }
 
   return (
-    <PropertiesContext.Provider value={{ 
-      properties, 
-      favoriteProperties, 
-      toggleFavorite, 
-      goToDetail, 
-      setSortOption, 
-      updateProperty, 
-      uploadPropertyImages 
+    <PropertiesContext.Provider value={{
+      properties,
+      favoriteProperties,
+      sortOption,
+      setSortOption,
+      toggleFavorite,
+      goToDetail,
+      updateProperty,
+      deleteProperty,
+      setProperties
     }}>
       {children}
     </PropertiesContext.Provider>
   )
 }
+
+
 
 
