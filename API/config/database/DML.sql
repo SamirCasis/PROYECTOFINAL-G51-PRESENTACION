@@ -7,8 +7,8 @@ VALUES
 
 INSERT INTO users (name, phone, email, password, rol)
 VALUES 
-('Samir', '9200000', 'samir.casis@gmail.com', '$2b$10$moUTweIlkEXCRVQ1h2Jc/eMFJaGFxqxIWj1eOgsJrGdLsQd5AH5iu', 'usuario'),
-('Prueba', '7800000', 'prueba@gmail.com', '$2b$10$2q9IMBNYNKz5msczuu0/0uH5YIIkoqnXg7RSJ8GOWzxr5jGxt45/m', 'admin');
+('Samir', '9200000', 'samir.casis@gmail.com', '$2b$10$moUTweIlkEXCRVQ1h2Jc/eMFJaGFxqxIWj1eOgsJrGdLsQd5AH5iu', 'admin'),
+('Prueba', '7800000', 'prueba@gmail.com', '$2b$10$2q9IMBNYNKz5msczuu0/0uH5YIIkoqnXg7RSJ8GOWzxr5jGxt45/m', 'usuario');
 
 SELECT * FROM properties;
 SELECT * FROM users;
