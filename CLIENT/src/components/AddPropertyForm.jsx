@@ -27,7 +27,7 @@ const AddPropertyForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(`${API_URL}api/v1/properties`, formData)
+      await axios.post(`${API_URL}/api/v1/properties`, formData)
       Swal.fire({
         icon: 'success',
         title: 'Propiedad agregada!',
