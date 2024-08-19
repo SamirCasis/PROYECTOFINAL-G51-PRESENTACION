@@ -19,7 +19,7 @@ const UpdateUserForm = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${API_URL}${userId}`, {
+        const response = await axios.get(`${API_URL}/${userId}`, {
           headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
