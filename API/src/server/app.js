@@ -14,7 +14,10 @@ swagger(app)
 
 // Middleware
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: 'https://proyectofinal-g51-presentacion.onrender.com',
+    credentials: true
+}))
 app.use(serverLog)
 
 // Rutas

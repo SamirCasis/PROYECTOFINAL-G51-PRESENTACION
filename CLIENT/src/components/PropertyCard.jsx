@@ -10,7 +10,6 @@ const PropertyCard = () => {
   const { id } = useParams()
   const { properties } = useContext(PropertiesContext)
   const { agregarCarrito } = useContext(CartContext)
-
   const [property, setProperty] = useState(null)
   const [currentImage, setCurrentImage] = useState('')
 

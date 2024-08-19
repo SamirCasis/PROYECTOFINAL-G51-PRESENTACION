@@ -10,7 +10,7 @@ const Cart = () => {
   const { cart, eliminarCarrito, eliminarTodoCarrito, sumaTotal } = useContext(CartContext)
   const { userData } = useContext(UserContext)
   const userId = userData?.id
-  const URLBASE = "http://localhost:5200"
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200'
 
   const handlePayment = async () => {
     if (!userId) {
@@ -25,7 +25,7 @@ const Cart = () => {
 
     try {
       const responses = await Promise.all(cart.map(property => 
-        axios.post(`${URLBASE}/api/v1/transactions`, {
+        axios.post(`${API_URL}/api/v1/transactions`, {
           user_id: userId,
           property_id: property.id
         }, {
@@ -41,7 +41,7 @@ const Cart = () => {
         throw new Error('No se pudo obtener el ID de la transacción')
       }
 
-      const transactionResponse = await axios.get(`${URLBASE}/api/v1/transactions/${transactionId}`, {
+      const transactionResponse = await axios.get(`${API_URL}/api/v1/transactions/${transactionId}`, {
         headers: {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }

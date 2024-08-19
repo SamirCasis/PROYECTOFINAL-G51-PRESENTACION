@@ -5,6 +5,8 @@ import SweetAlert from 'sweetalert2'
 import { PropertiesContext } from '../context/PropertiesContext'
 import './UpdatePropertyPage.css'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200'
+
 const UpdatePropertyPage = () => {
   const { properties, updateProperty, setProperties } = useContext(PropertiesContext)
   const [selectedProperty, setSelectedProperty] = useState(null)
@@ -73,7 +75,7 @@ const UpdatePropertyPage = () => {
   
     if (result.isConfirmed) {
       try {
-        const response = await axios.delete(`http://localhost:5200/api/v1/properties/${id}`)
+        const response = await axios.delete(`${API_URL}/api/v1/properties/${id}`)
         if (response.status === 200) {
           setProperties(prevProperties => prevProperties.filter(property => property.id !== id))
           setSuccess('Propiedad eliminada con éxito')

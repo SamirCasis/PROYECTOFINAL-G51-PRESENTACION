@@ -14,12 +14,12 @@ const UpdateUserForm = () => {
   const [loading, setLoading] = useState(true)
   const [formValid, setFormValid] = useState(false)
   const userId = userData.id
-  const URLBASE = 'http://localhost:5200/api/v1/users/'
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200'
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${URLBASE}${userId}`, {
+        const response = await axios.get(`${API_URL}${userId}`, {
           headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
@@ -57,7 +57,7 @@ const UpdateUserForm = () => {
     }
 
     try {
-      const response = await axios.put(`${URLBASE}${userId}`, updatedUser, {
+      const response = await axios.put(`${API_URL}${userId}`, updatedUser, {
         headers: {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }

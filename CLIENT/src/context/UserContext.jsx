@@ -4,7 +4,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const UserContext = createContext()
-const URLBASE = "http://localhost:5200"
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200'
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -68,7 +68,7 @@ const UserProvider = ({ children }) => {
       })
 
       try {
-        const response = await axios.post(`${URLBASE}/api/v1/users/register`, {
+        const response = await axios.post(`${API_URL}/api/v1/users/register`, {
           name,
           email,
           phone,
@@ -97,7 +97,7 @@ const UserProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await axios.post(`${URLBASE}/api/v1/users/login`, credentials)
+      const response = await axios.post(`${API_URL}/api/v1/users/login`, credentials)
       const { token, rol, id, email } = response.data
       sessionStorage.setItem('token', token)
       sessionStorage.setItem('rol', rol)

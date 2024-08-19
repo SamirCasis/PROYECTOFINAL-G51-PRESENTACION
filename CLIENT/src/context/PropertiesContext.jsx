@@ -4,6 +4,8 @@ import axios from 'axios'
 
 export const PropertiesContext = createContext()
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200'
+
 export const PropertiesProvider = ({ children }) => {
   const [properties, setProperties] = useState([])
   const [favoriteProperties, setFavoriteProperties] = useState([])
@@ -13,7 +15,7 @@ export const PropertiesProvider = ({ children }) => {
   useEffect(() => {
     const getProperties = async () => {
       try {
-        const response = await axios.get('http://localhost:5200/api/v1/properties')
+        const response = await axios.get(`${API_URL}/api/v1/properties`)
         setProperties(response.data)
       } catch (error) {
         console.error('Error fetching properties:', error)
@@ -53,7 +55,7 @@ export const PropertiesProvider = ({ children }) => {
 
   const updateProperty = async (id, updates) => {
     try {
-      const response = await axios.put(`http://localhost:5200/api/v1/properties/${id}`, updates)
+      const response = await axios.put(`${API_URL}/api/v1/properties/${id}`, updates)
       if (response.status === 200) {
         setProperties(prevProperties => 
           prevProperties.map(property =>
@@ -70,7 +72,7 @@ export const PropertiesProvider = ({ children }) => {
 
   const deleteProperty = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5200/api/v1/properties/${id}`)
+      const response = await axios.delete(`${API_URL}/api/v1/properties/${id}`)
       if (response.status === 200) {
         setProperties(prevProperties =>
           prevProperties.filter(property => property.id !== id)

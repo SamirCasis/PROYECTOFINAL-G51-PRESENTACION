@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Form, Button } from 'react-bootstrap'
 import './AddPropertyForm.css'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200'
+
 const AddPropertyForm = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -25,7 +27,7 @@ const AddPropertyForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:5200/api/v1/properties', formData)
+      await axios.post(`${API_URL}api/v1/properties`, formData)
       Swal.fire({
         icon: 'success',
         title: 'Propiedad agregada!',

@@ -3,7 +3,7 @@ import './NotFound.css'
 const NotFound = () => {
   return (
     <article className="imagenNF">
-      <img className="errorImg" src='/error.jpeg' alt='imagen pizza error' />
+      <img className="errorImg" src='https://imagizer.imageshack.com/img924/4484/ZftJYc.jpg' alt='imagen pizza error' />
     </article>
   )
 }
