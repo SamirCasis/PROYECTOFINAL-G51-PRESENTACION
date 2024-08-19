@@ -25,6 +25,11 @@ app.use('/api/v1', usersRoutes)
 app.use('/api/v1', propertiesRoutes)
 app.use('/api/v1', transactionsRoutes)
 
+// Ruta errónea
+app.use('*', (req, res) => {
+  res.status(404).send({ message: 'La ruta que intenta consultar no existe' })
+})
+
 // Inicia el servidor
 app.listen(PORT, () => {
   console.log(`Server ON -> http://localhost:${PORT}`)
