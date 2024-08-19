@@ -1,5 +1,7 @@
 .cardSample {
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.6));
+  margin-top: 5%;
+  max-height: 35rem;
 }
 
 .card-img-top {
@@ -9,4 +11,19 @@
 
 .card-body {
   background-color: rgb(255, 255, 255);
+}
+
+.property-details {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+}
+
+.detail-item span {
+  margin-left: 0.5rem;
 }

@@ -17,24 +17,7 @@
     max-height: 30rem;
     border-radius: 20px;
   }
-  
-  .thumbnail-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-  }
-  
-  .thumbnail {
-    width: 100px;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  
-  .thumbnail:hover {
-    transform: scale(1.1);
-  }
-  
+   
   .card-body {
     padding: 20px;
   }
@@ -64,3 +47,18 @@
     background-color: #e63e00;
   }
   
+  .card-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .card-body li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-body .fa-bed,
+  .card-body .fa-bath {
+    margin-right: 0.5rem;
+  }

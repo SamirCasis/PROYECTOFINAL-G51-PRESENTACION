@@ -5,6 +5,8 @@ import { PropertiesContext } from '../context/PropertiesContext'
 import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBed, faBath } from '@fortawesome/free-solid-svg-icons'
 import './PropertySample.css'
 
 const PropertySample = ({ property, isFavorite, onToggleFavorite }) => {
@@ -58,12 +60,22 @@ const PropertySample = ({ property, isFavorite, onToggleFavorite }) => {
   }
 
   return (
-    <Card className='cardSample' style={{ width: '25rem' }}>
+    <Card className='cardSample'>
       <Card.Img variant="top" src={property.imgurl} alt={property.title} />
       <Card.Body>
         <Card.Title>{property.title}</Card.Title>
         <Card.Text>{property.description}</Card.Text>
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="property-details">
+          <div className="detail-item">
+            <FontAwesomeIcon icon={faBed} />
+            <span>{property.bedrooms} Dormitorios</span>
+          </div>
+          <div className="detail-item">
+            <FontAwesomeIcon icon={faBath} />
+            <span>{property.bathrooms} Baños</span>
+          </div>
+        </div>
+        <div className="d-flex justify-content-between align-items-center mt-3">
           <Button variant="primary" onClick={handleViewMore}>
             Ver más
           </Button>
@@ -77,6 +89,7 @@ const PropertySample = ({ property, isFavorite, onToggleFavorite }) => {
 }
 
 export default PropertySample
+
 
 
 

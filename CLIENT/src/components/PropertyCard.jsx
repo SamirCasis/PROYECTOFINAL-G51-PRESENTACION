@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { PropertiesContext } from '../context/PropertiesContext'
 import { CartContext } from '../context/CartContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBed, faBath } from '@fortawesome/free-solid-svg-icons'
 import './PropertyCard.css'
 
 const PropertyCard = () => {
@@ -34,8 +36,14 @@ const PropertyCard = () => {
             <li>{property.description}</li>
             <li>Ubicación: {property.location}</li>
             <li>Metros cuadrados: {property.meters}</li>
-            <li>Dormitorios: {property.bedrooms}</li>
-            <li>Baños: {property.bathrooms}</li>
+            <li>
+              <FontAwesomeIcon icon={faBed} />
+              <span>{property.bedrooms} Dormitorios</span>
+            </li>
+            <li>
+              <FontAwesomeIcon icon={faBath} />
+              <span>{property.bathrooms} Baños</span>
+            </li>
           </ul>
           <p className="price"><strong>{property.price} UF</strong></p>
           <button className="buy-button" onClick={() => agregarCarrito(property.id)}>
@@ -48,6 +56,7 @@ const PropertyCard = () => {
 }
 
 export default PropertyCard
+
 
 
 
