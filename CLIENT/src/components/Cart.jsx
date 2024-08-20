@@ -5,11 +5,13 @@ import { Button, Table } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import './Cart.css'
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
   const { cart, eliminarCarrito, eliminarTodoCarrito, sumaTotal } = useContext(CartContext)
   const { userData } = useContext(UserContext)
   const userId = userData?.id
+  const navigate = useNavigate()
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200'
 
   const handlePayment = async () => {
@@ -24,7 +26,7 @@ const Cart = () => {
     }
 
     try {
-      const responses = await Promise.all(cart.map(property => 
+      const responses = await Promise.all(cart.map(property =>
         axios.post(`${API_URL}/api/v1/transactions`, {
           user_id: userId,
           property_id: property.id
@@ -59,9 +61,10 @@ const Cart = () => {
         `,
         icon: 'success',
         confirmButtonText: 'OK'
+      }).then(() => {
+        eliminarTodoCarrito()
+        navigate('/')
       })
-
-      eliminarTodoCarrito()
     } catch (error) {
       console.error('Error al procesar el pago', error)
       Swal.fire({
