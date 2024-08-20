@@ -13,9 +13,9 @@ const App = () => {
       <Routes>
         {/* Rutas Públicas */}
         <Route path='/' element={<HomeView />} />
-        <Route path='https://proyectofinal-g51-presentacion.onrender.com/register' element={<RegisterView />} />
-        <Route path='https://proyectofinal-g51-presentacion.onrender.com/login' element={<LoginView />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path='/register' element={<RegisterView />} />
+        <Route path='/login' element={<LoginView />} />
+        <Route path='/*' element={<NotFound />} />
         {/* Rutas Protegidas */}
         <Route path='/usersesion/*' element={<ProtectedRoute element={UserView} requiredRole="user" />} />
         <Route path='/admin/*' element={<ProtectedRoute element={AdminView} requiredRole="admin" />} />
