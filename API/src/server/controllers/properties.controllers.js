@@ -54,7 +54,6 @@ export const updateProperty = async (req, res) => {
       res.status(404).json({ message: 'No se encuentra la propiedad' })
     }
   } catch (error) {
-    console.error('Error updating property:', error)
     res.status(500).json({ message: 'Error al actualizar propiedad' })
   }
 }

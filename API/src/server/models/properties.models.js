@@ -20,13 +20,22 @@ export const postPropertiesModel = async (title, location, meters, bedrooms, bat
   return rows[0]
 }
 
-export const updatePropertyModel = async (id, updates) => {
-  const setQuery = Object.keys(updates)
-    .map((key, index) => `${key} = $${index + 2}`)
-    .join(', ')
-  const query = `UPDATE properties SET ${setQuery} WHERE id = $1 RETURNING *`
-  const values = [id, ...Object.values(updates)]
-  const rows = await linkDB(query, values)
+export const updatePropertyModel = async (id, { title, location, meters, bedrooms, bathrooms, description, price, imgurl }) => {
+  const query = `
+    UPDATE properties 
+    SET 
+      title = COALESCE($1, title), 
+      location = COALESCE($2, location), 
+      meters = COALESCE($3, meters), 
+      bedrooms = COALESCE($4, bedrooms), 
+      bathrooms = COALESCE($5, bathrooms), 
+      description = COALESCE($6, description), 
+      price = COALESCE($7, price), 
+      imgurl = COALESCE($8, imgurl)
+    WHERE id = $9 
+    RETURNING *
+  `
+  const rows = await linkDB(query, [title, location, meters, bedrooms, bathrooms, description, price, imgurl, id])
   return rows[0]
 }
 
