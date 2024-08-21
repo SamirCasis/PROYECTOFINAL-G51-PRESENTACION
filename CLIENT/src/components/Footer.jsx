@@ -30,7 +30,7 @@ const Footer = () => {
             <ul type='none'>
               <li>Avda. Concha y Toro 6022, Puente Alto, Santiago</li>
               <li>Teléfono: +56 9 9826 3000  +56 9 9538 6000</li>
-              <li>E-mail: ventas.ysalas@gmail.cl</li>
+              <li>E-mail: ventas.ysalas@gmail.com</li>
             </ul>
           </section>
         </main>
